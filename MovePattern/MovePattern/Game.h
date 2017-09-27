@@ -1,82 +1,123 @@
-//
 // Game.h
-//
 
 #pragma once
+#ifndef GAME
+#define GAME
+
+/*
+#include <WinSDKVer.h>
+#define _WIN32_WINNT 0x0600
+#include <SDKDDKVer.h>
+*/
+
+// Use the C++ standard templated min/max
+#define NOMINMAX
+
+// DirectX apps don't need GDI
+#define NODRAWTEXT
+#define NOGDI
+#define NOBITMAP
+
+// Include <mcx.h> if you need this
+#define NOMCX
+
+// Include <winsvc.h> if you need this
+#define NOSERVICE
+
+// WinHelp is deprecated
+#define NOHELP
+
+
+#include <windows.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include <d3d11.h>
+#include <SimpleMath.h>
+#include <SpriteBatch.h>
+#include <SpriteFont.h>
+#include <Model.h>
+#include <Keyboard.h>
+#include <GeometricPrimitive.h>
+#include <WICTextureLoader.h>
+#include <algorithm>
 
 #include "StepTimer.h"
 #include "Camera.h"
-#include "DebugCamera.h"
-#include <CommonStates.h>
-#include <Effects.h>
-#include <d3d11.h>
-#include <SimpleMath.h>
-#include <memory>
-#include <Model.h>
+#include "dx.h"
+#include "Window.h"
+#include "Graphics.h"
 
+#include "Player.h"
 
-// A basic game implementation that creates a D3D11 device and
-// provides a game loop.
-class Game
-{
+class Window;
+
+class Game {
 public:
+	// 基本ゲームループを実行する Run basic game loop
+	MSG Run();
 
-    Game();
+	// コンストラクタ Constructor
+    Game(int width, int height);
+    // ゲームに必要なオブジェクトを初期する Initialize game object
+    virtual void Initialize();
+	// ゲームを更新する Update game
+	virtual void Update(DX::StepTimer const& timer);
+	// 画面をクリアする Clear screen
+	virtual void Clear();
+	// シーンを描画する Render scene
+	virtual void Render(DX::StepTimer const& timer);
+	// バックバッファをスクリーンに送る
+	virtual void Present();
+	// 終了処理をおこなう Finalize game
+	virtual void Finalize();
 
-    // Initialization and management
-    void Initialize(HWND window, int width, int height);
-
-    // Basic game loop
-    void Tick();
-
-    // Messages
+    // メッセージ Messages
     void OnActivated();
     void OnDeactivated();
     void OnSuspending();
     void OnResuming();
     void OnWindowSizeChanged(int width, int height);
 
-    // Properties
-    void GetDefaultSize( int& width, int& height ) const;
+    // プロパティ Properties
+    void GetDefaultSize(int& width, int& height) const;
+	// FPSを描画する Draw FPS
+	void DrawFPS();
 
 private:
+	// インスタンスハンドル
+	HINSTANCE hInstance;
+	// 実行時のウィンドウの大きさ
+	int nCmdShow;
+    // デバイスリソース Device resources
+    HWND hWnd;
+	// 出力幅 window width
+    int width;
+	// 出力高 window height
+    int height;
 
-    void Update(DX::StepTimer const& timer);
-    void Render();
+	// ウィンドウ Window
+	std::unique_ptr<Window> window;
+	// グラフィックス Graphics
+	std::unique_ptr<Graphics> graphics;
+	// 機能レベル Feature level
+    D3D_FEATURE_LEVEL featureLevel;
 
-    void Clear();
-    void Present();
+protected:
+    // ループタイマーを描画する Rendering loop timer
+    DX::StepTimer timer;
 
-    void CreateDevice();
-    void CreateResources();
+	// キーボード Keyboard
+	std::unique_ptr<DirectX::Keyboard> keyboard;
+	// スプライトバッチ SpriteBatch
+	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
+	// フォント Font
+	std::unique_ptr<DirectX::SpriteFont> font;
+	// エフェクトファクトリインターフェース IEffectFactory
+	std::unique_ptr<DirectX::CommonStates> commonStates;
 
-    void OnDeviceLost();
-
-    // Device resources.
-    HWND                                            m_window;
-    int                                             m_outputWidth;
-    int                                             m_outputHeight;
-
-    D3D_FEATURE_LEVEL                               m_featureLevel;
-    Microsoft::WRL::ComPtr<ID3D11Device>            m_d3dDevice;
-    Microsoft::WRL::ComPtr<ID3D11Device1>           m_d3dDevice1;
-    Microsoft::WRL::ComPtr<ID3D11DeviceContext>     m_d3dContext;
-    Microsoft::WRL::ComPtr<ID3D11DeviceContext1>    m_d3dContext1;
-
-    Microsoft::WRL::ComPtr<IDXGISwapChain>          m_swapChain;
-    Microsoft::WRL::ComPtr<IDXGISwapChain1>         m_swapChain1;
-    Microsoft::WRL::ComPtr<ID3D11RenderTargetView>  m_renderTargetView;
-    Microsoft::WRL::ComPtr<ID3D11DepthStencilView>  m_depthStencilView;
-
-    // Rendering loop timer.
-    DX::StepTimer                                   m_timer;
-
-	std::unique_ptr<Camera> m_camera;
-	DirectX::SimpleMath::Matrix m_world;
-	DirectX::SimpleMath::Matrix m_view;
-	DirectX::SimpleMath::Matrix m_proj;
-
-	std::unique_ptr<DirectX::EffectFactory> m_factory;
-	std::unique_ptr<DirectX::CommonStates> m_states;
-	std::unique_ptr<DirectX::Model> m_ground;
+	std::shared_ptr<Camera> camera;
 };
+
+#endif	// GAME

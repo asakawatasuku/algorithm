@@ -17,6 +17,13 @@
     <ClInclude Include="WaypointNavigation.h" />
     <ClInclude Include="MathGroup.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="KeyboardUtil.h" />
+    <ClInclude Include="dx.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="MyGame.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="Enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -26,6 +33,13 @@
     <ClCompile Include="Pursuit.cpp" />
     <ClCompile Include="WaypointNavigation.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="KeyboardUtil.cpp" />
+    <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
