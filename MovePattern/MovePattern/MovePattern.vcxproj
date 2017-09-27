@@ -156,6 +156,7 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Interception.h" />
+    <ClInclude Include="MathGroup.h" />
     <ClInclude Include="MovingPattern.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Pursuit.h" />

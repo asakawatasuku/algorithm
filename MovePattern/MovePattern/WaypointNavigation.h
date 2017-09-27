@@ -1,3 +1,7 @@
+/// <summary>
+/// ウェイポイントナビゲーションクラス
+/// </summary>
+
 #include "MovingPattern.h"
 #include <d3d11.h>
 #include <SimpleMath.h>
@@ -5,6 +9,7 @@
 
 class WaypointNavigation :public MovingPattern
 {
+	// Unityより移植 ////////////////////////////
 private:
 	// ウェイポイント
 	std::vector<DirectX::SimpleMath::Vector3> m_waypoints;
@@ -21,4 +26,27 @@ public:
 private:
 	void Move();
 	void Wait();
+
+	//////////////////////////////////////////////////
+
+	// Webより引用 ///////////////////////////////////
+
+private:
+	static const int WAY_POINT_MAX_NUM = 20;
+#define INF_COST (1 << 28)
+	int m_edge_cost[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
+	int m_shortest_path[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
+	int m_target_index;
+	DirectX::SimpleMath::Vector3 m_target_waypoint;
+public:
+	//void Initialize(std::shared_ptr<Base> object, std::shared_ptr<Base> target);
+
+	void CreateGraph();
+	int GetNextNode(const int start, const int end);
+	void Update(DirectX::SimpleMath::Vector3& now_pos, const float now_dir,
+		const float now_vel, const DirectX::SimpleMath::Vector3 target_pos);
+	int SearchNearestPoint(const DirectX::SimpleMath::Vector3& pos);
+	DirectX::SimpleMath::Vector3 GetWaypointPos(const int& index);
+
+//////////////////////////////////////////////////
 };

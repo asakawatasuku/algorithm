@@ -15,6 +15,7 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="MovingPattern.h" />
     <ClInclude Include="WaypointNavigation.h" />
+    <ClInclude Include="MathGroup.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
