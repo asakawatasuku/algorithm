@@ -1,21 +1,25 @@
-#include <iostream>
+#pragma once
+#include <SimpleMath.h>
 
-class Pursuit
+#include "MovingPattern.h"
+
+class Pursuit : public MovingPattern
 {
 public:
 	Pursuit();
 	~Pursuit();
 
 private:
-	float m_P1;			// プレイヤー座標
-	float m_P2;			// エネミー座標
-	float m_move;		// 2点間の距離
-	float m_go;			// 追跡移動量
+	// 座標の差
+	DirectX::SimpleMath::Vector3 m_Dif_position;
 
-protected:
-	void Initialize();
+	// 追跡移動量(Tracking travel distance)
+	DirectX::SimpleMath::Vector3 m_ttd;
+
+public:
+	void Initialize(std::shared_ptr<Base> object, std::shared_ptr<Base> target)override;
 	void Update();
-	void Drow();
+
 
 };
 
