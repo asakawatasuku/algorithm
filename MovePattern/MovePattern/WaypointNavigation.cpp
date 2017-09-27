@@ -1,4 +1,5 @@
 #include "WaypointNavigation.h"
+#include <ctime>
 #include <memory>
 
 
@@ -12,7 +13,7 @@ WaypointNavigation::WaypointNavigation()
 	, m_min_dist(0.0f)
 	, m_move_delay_time(0.0f)
 {
-	srand(static_cast<unsigned int>time(nullptr));
+	srand(static_cast<unsigned int>(time(nullptr)));
 }
 
 
@@ -33,7 +34,7 @@ void WaypointNavigation::Initialize(shared_ptr<Base> object, shared_ptr<Base> ta
 
 void WaypointNavigation::Update()
 {
-	float dist = Vector3::Distance(m_object gameObject.transform.position, waypoints[num].transform.position);
+	float dist = Vector3::Distance(m_object->GetPos(), m_waypoints[m_waypoint_num].transform.position);
 
 	if (dist > minDist)
 	{
@@ -52,8 +53,8 @@ void WaypointNavigation::Move()
 {
 	if (!navMeshAgent.isStopped)
 	{
-		navMeshAgent.SetDestination(waypoints[num].transform.position);
-		m_waypoint_last_num = num;
+		navMeshAgent.SetDestination(m_waypoints[m_waypoint_num].transform.position);
+		m_waypoint_last_num = m_waypoint_num;
 	}
 }
 
@@ -61,11 +62,11 @@ void WaypointNavigation::Move()
 
 void WaypointNavigation::Wait()
 {
-	m_moveDelayTime++;
+	m_move_delay_time++;
 	
-	if (m_moveDelayTime > 3 * 60.0f)
+	if (m_move_delay_time > 3 * 60.0f)
 	{
-		m_moveDelayTime = 0;
+		m_move_delay_time = 0;
 		m_waypoint_num = rand() % m_waypoints.size();
 	}
 }

@@ -1,3 +1,7 @@
+/// <summary>
+/// 移動パターンの基底クラス
+/// </summary>
+
 #include "Base.h"
 #include <memory>
 

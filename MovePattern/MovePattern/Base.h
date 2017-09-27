@@ -1,11 +1,22 @@
 #pragma once
+#include <d3d11.h>
 #include <SimpleMath.h>
 
 class Base
 {
 private:
-	float m_speed;			
-	DirectX::SimpleMath::Vector3 m_velocity;	// 速度
+	float m_speed;
+	DirectX::SimpleMath::Vector3 m_pos;	// 座標
+
+public:
+	float GetSpeed()
+	{
+		return m_speed;
+	}
+	DirectX::SimpleMath::Vector3 GetPos()
+	{
+		return m_pos;
+	}
 
 protected:
 	virtual void Update() = 0;	// 更新関数
