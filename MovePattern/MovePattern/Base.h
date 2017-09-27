@@ -1,14 +1,31 @@
 #pragma once
+
+#include "Camera.h"
+#include <memory>
+#include <Model.h>
 #include <d3d11.h>
 #include <SimpleMath.h>
 
 class Base
 {
-private:
-	float m_speed;
+protected:
+	static std::unique_ptr<DirectX::CommonStates> m_states;
+	static std::shared_ptr<Camera> m_camera;
+protected:
+	std::unique_ptr<DirectX::Model> m_model;
+	DirectX::SimpleMath::Vector3 m_scale;
+	DirectX::SimpleMath::Vector3 m_rot;
 	DirectX::SimpleMath::Vector3 m_pos;	// ç¿ïW
+	DirectX::SimpleMath::Matrix m_world;
+	float m_speed;
 
 public:
+	virtual void Initialize(std::shared_ptr<Camera> camera) = 0;
+	virtual void Update() = 0;
+	virtual void Render();
+
+	void LoadModel(const std::wstring& file_name);
+
 	float GetSpeed()
 	{
 		return m_speed;
@@ -22,8 +39,5 @@ public:
 	{
 		m_pos = pos;
 	}
-
-protected:
-	virtual void Update() = 0;	// çXêVä÷êî
 };
 
