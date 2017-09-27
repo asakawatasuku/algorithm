@@ -16,6 +16,7 @@
     <ClInclude Include="MovingPattern.h" />
     <ClInclude Include="WaypointNavigation.h" />
     <ClInclude Include="MathGroup.h" />
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -24,6 +25,7 @@
     <ClCompile Include="Interception.cpp" />
     <ClCompile Include="Pursuit.cpp" />
     <ClCompile Include="WaypointNavigation.cpp" />
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -37,5 +39,10 @@
     <Manifest Include="settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="Assets\ground.FBX">
+      <Filter>Assets</Filter>
+    </MeshContentTask>
   </ItemGroup>
 </Project>

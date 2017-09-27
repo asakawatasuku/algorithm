@@ -8,6 +8,7 @@
 extern void ExitGame();
 
 using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 using Microsoft::WRL::ComPtr;
 
@@ -36,6 +37,16 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetFixedTimeStep(true);
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
+
+	m_camera = std::make_unique<Camera>(m_outputWidth, m_outputHeight);
+	m_camera->SetEyePos(Vector3(0, 1, -1));
+
+	m_factory = std::make_unique<EffectFactory>(m_d3dDevice.Get());
+	m_factory->SetDirectory(L"Resources");
+
+	m_ground = Model::CreateFromCMO(m_d3dDevice.Get(), L"Resources\\ground.cmo", *m_factory);
+
+	m_states = std::make_unique<CommonStates>(m_d3dDevice.Get());
 }
 
 // Executes the basic game loop.
@@ -56,6 +67,24 @@ void Game::Update(DX::StepTimer const& timer)
 
     // TODO: Add your game logic here.
     elapsedTime;
+
+	m_camera->Update();
+
+	m_view = m_camera->GetView();
+
+	// 垂直方向視野角(上下それぞれ何度まで写すか)
+	float fovY = XMConvertToRadians(60.0f);
+	// 画面サイズの比率
+	float aspect = (float)m_outputWidth / m_outputHeight;
+	// 手前の表示限界
+	float nearClip = 0.1f;
+	// 奥の表示限界
+	float farClip = 1000.0f;
+	m_camera->SetFovY(fovY);
+	m_camera->SetAspect(aspect);
+	m_camera->SetNearClip(nearClip);
+	m_camera->SetFarClip(farClip);
+	m_proj = m_camera->GetProjection();
 }
 
 // Draws the scene.
@@ -70,6 +99,11 @@ void Game::Render()
     Clear();
 
     // TODO: Add your rendering code here.
+	m_d3dContext->OMSetBlendState(m_states->Opaque(), nullptr, 0xFFFFFFFF);
+	m_d3dContext->OMSetDepthStencilState(m_states->DepthNone(), 0);
+	m_d3dContext->RSSetState(m_states->CullNone());
+
+	m_ground->Draw(m_d3dContext.Get(), *m_states, m_world, m_view, m_proj);
 
     Present();
 }

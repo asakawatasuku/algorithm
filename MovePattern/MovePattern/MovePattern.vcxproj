@@ -53,6 +53,8 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.props" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -154,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Interception.h" />
     <ClInclude Include="MathGroup.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="WaypointNavigation.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Interception.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -185,7 +189,14 @@
   <ItemGroup>
     <Manifest Include="settings.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="Assets\ground.FBX">
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Resources\%(Filename).cmo</ContentOutput>
+    </MeshContentTask>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.targets" />
   </ImportGroup>
 </Project>
