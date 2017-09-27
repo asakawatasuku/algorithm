@@ -18,6 +18,11 @@ public:
 		return m_pos;
 	}
 
+	void SetPos(DirectX::SimpleMath::Vector3 pos)
+	{
+		m_pos = pos;
+	}
+
 protected:
 	virtual void Update() = 0;	// XVŠÖ”
 };
