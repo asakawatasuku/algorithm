@@ -37,8 +37,9 @@ private:
 
 
 public:
-	void Initialize(std::shared_ptr<Base> object, std::shared_ptr<Base> target);
+	void Initialize(Base* object, Base* target);
 	void Update();
 	void UpdateBresenham(DirectX::SimpleMath::Vector3& now, DirectX::SimpleMath::Vector3 &target);
+	void Finalize();
 
 };

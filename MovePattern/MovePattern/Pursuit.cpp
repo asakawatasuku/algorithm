@@ -6,7 +6,7 @@ using namespace DirectX::SimpleMath;
 //---------------------------------------
 // ‰Šúİ’è
 //---------------------------------------
-void Pursuit::Initialize(shared_ptr<Base> object, shared_ptr<Base> target) {
+void Pursuit::Initialize(Base* object, Base* target) {
 	m_object = object;
 	m_target = target;
 	m_object->SetSpeed(Vector3());
@@ -24,5 +24,9 @@ void Pursuit::Update() {
 
 	// ’ÇÕˆÚ“®—Ê‚ğ‹‚ß‚é
 	m_ttd = m_Dif_position * m_object->GetSpeed().Distance(Vector3::Zero, m_object->GetSpeed());
+}
+
+void Pursuit::Finalize(){
+
 }
 	
