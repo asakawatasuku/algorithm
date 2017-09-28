@@ -38,25 +38,30 @@ void Interception::Update() {
 	m_Sr.z = m_Sp.z - m_Se.z;
 
 	// ëäëŒë¨ìx
-	m_Vp = Vector3(m_Sp.x + m_Se.x, m_Sp.y + m_Se.y, m_Sp.z + m_Se.z);
-	//m_Ve = Vetor3();
+	m_Vp = sqrt(m_Sp.x * m_Sp.x + m_Sp.y * m_Sp.y + m_Sp.z * m_Sp.z);
+	m_Ve = sqrt(m_Se.x * m_Se.x + m_Se.y * m_Se.y + m_Se.z * m_Se.z);
 
 	m_Vr = m_Vp - m_Ve;
 
 	// ê≥ãKâª
 	m_Sr.Normalize();
-	m_Vr.Normalize();
+	//m_Vr.Normalize();
 
 	//  ê⁄ãﬂéûä‘
 	m_Tc = 0;
 	double distance = sqrt(m_Sr.x * m_Sr.x + m_Sr.z * m_Sr.z);
-	double velcity = sqrt(m_Vr.x * m_Vr.x + m_Vr.z * m_Vr.z);
+	double velcity = sqrt(m_Vr);
 	if (!(0.000f <= velcity && velcity <= 0.000f)) {
 		m_Tc = distance / velcity;
 		m_Tc = fabs(m_Tc);
 	}
 
 	// å}åÇÉ|ÉCÉìÉgÇãÅÇﬂÇÈ
-	m_point = m_Sp + m_Vp * m_Tc;
+	m_point = m_Sp + Vector3(m_Vp) * m_Tc;
+
+	// å}åÇà⁄ìÆó 
+	m_movement = m_point - m_Se * 1.0;
 
 }
+
+

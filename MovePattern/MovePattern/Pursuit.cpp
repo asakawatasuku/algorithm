@@ -36,6 +36,6 @@ void Pursuit::Update() {
 	m_Dif_position.Normalize();
 
 	// ’ÇÕˆÚ“®—Ê‚ğ‹‚ß‚é
-	m_ttd = m_Dif_position * Vector3();
+	m_ttd = m_Dif_position * 1.0;
 }
 	
