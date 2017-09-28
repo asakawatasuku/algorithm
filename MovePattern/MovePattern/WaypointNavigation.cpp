@@ -40,7 +40,7 @@ WaypointNavigation::~WaypointNavigation()
 /// </summary>
 /// <param name="object">ウェイポイントを実装するオブジェクト</param>
 /// <param name="target">実装するオブジェクトの対象オブジェクト</param>
-void WaypointNavigation::Initialize(shared_ptr<Base> object, shared_ptr<Base> target)
+void WaypointNavigation::Initialize(Base* object, Base* target)
 {
 	m_object = object;
 	m_target = nullptr;
@@ -64,6 +64,13 @@ void WaypointNavigation::Update()
 	//{
 	//	Wait();
 	//}
+}
+
+
+
+void WaypointNavigation::Finalize()
+{
+	MovingPattern::Finalize();
 }
 
 
