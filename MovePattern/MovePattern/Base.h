@@ -11,6 +11,7 @@ class Base
 protected:
 	static std::unique_ptr<DirectX::CommonStates> m_states;
 	static std::shared_ptr<Camera> m_camera;
+
 protected:
 	std::unique_ptr<DirectX::Model> m_model;
 	DirectX::SimpleMath::Vector3 m_scale;
@@ -20,8 +21,10 @@ protected:
 	float m_speed;
 
 public:
-	virtual void Initialize(std::shared_ptr<Camera> camera) = 0;
-	virtual void Update() = 0;
+	static void StaticInitialize(std::shared_ptr<Camera> camera);
+public:
+	virtual void Initialize(const std::wstring& file_name);
+	virtual void Update();
 	virtual void Render();
 
 	void LoadModel(const std::wstring& file_name);

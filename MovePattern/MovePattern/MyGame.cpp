@@ -14,15 +14,23 @@ void MyGame::Initialize() {
 	// 基本クラスのInitializeを呼び出す
 	Game::Initialize();
 
+	Base::StaticInitialize(camera);
+
+	m_ground = make_unique<Ground>();
+	m_ground->Initialize(L"ground");
+
 	// Playerオブジェクトを生成する Create Player object
 	m_player = make_unique<Player>();
 	// Playerオブジェクトを初期化する Initialize Player object
-	m_player->Initialize(camera);
+	m_player->Initialize(L"player");
 
 	// Enemyオブジェクトを生成する Create Enemy object
 	m_enemy = make_unique<Enemy>();
 	// Enemyオブジェクトを初期化する Initialize Enemy object
-	m_enemy->Initialize(camera);
+	m_enemy->Initialize(L"enemy");
+
+	m_keyboard = make_unique<KeyboardUtil>();
+	m_player->SetKeyboard(m_keyboard.get());
 }
 
 // ゲームを更新する Update game
@@ -32,6 +40,8 @@ void MyGame::Update(const DX::StepTimer& timer) {
 	// TODO: 更新処理を追加する Add your update process here
 
 	Game::Update(timer);
+
+	m_keyboard->Update();
 
 	// プレイヤを更新する Update Player object
 	m_player->Update();
@@ -55,6 +65,8 @@ void MyGame::Render(const DX::StepTimer& timer) {
 	// 描画を始める Begin rendering
 	spriteBatch->Begin(SpriteSortMode_Deferred, commonStates->NonPremultiplied());
 
+	// 地面を描画する
+	m_ground->Render();
 	// Playerオブジェクトを描画する Render Player object
 	m_player->Render();
 	// Enemyオブジェクトを描画する Render Enemy object

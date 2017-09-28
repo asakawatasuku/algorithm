@@ -1,3 +1,7 @@
+/// <summary>
+/// プレイヤークラス
+/// </summary>
+
 #pragma once
 
 #include "Base.h"
@@ -11,9 +15,7 @@ public:
 	Player();
 	~Player();
 
-	void Initialize(std::shared_ptr<Camera> camera);
 	void Update();
-	void Render();
 
 	void SetKeyboard(KeyboardUtil* keyboard)
 	{

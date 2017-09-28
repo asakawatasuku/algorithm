@@ -4,8 +4,10 @@
 #define MYGAME
 
 #include "Game.h"
+#include "Ground.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "KeyboardUtil.h"
 
 
 class MyGame : public Game {
@@ -22,10 +24,14 @@ public:
 	void Finalize() override;
 
 protected:
+	// 地面
+	std::unique_ptr<Ground> m_ground;
 	// プレイヤ Player
 	std::unique_ptr<Player> m_player;
 	// エネミー Enemy
 	std::unique_ptr<Enemy> m_enemy;
+
+	std::unique_ptr<KeyboardUtil> m_keyboard;
 };
 
 #endif	// MYGAME

@@ -99,6 +99,9 @@
       <AdditionalDependencies>DirectXTK.lib;d3d11.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <MeshContentTask>
+      <ContentOutput>Resources\%(Filename).cmo</ContentOutput>
+    </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -161,6 +164,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Interception.h" />
     <ClInclude Include="KeyboardUtil.h" />
     <ClInclude Include="MathGroup.h" />
@@ -179,6 +183,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Interception.cpp" />
     <ClCompile Include="KeyboardUtil.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -204,9 +209,9 @@
     <Manifest Include="settings.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\ground.FBX">
-      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Resources\%(Filename).cmo</ContentOutput>
-    </MeshContentTask>
+    <MeshContentTask Include="Assets\enemy.FBX" />
+    <MeshContentTask Include="Assets\ground.FBX" />
+    <MeshContentTask Include="Assets\player.FBX" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

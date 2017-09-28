@@ -1,3 +1,7 @@
+/// <summary>
+/// エネミークラス
+/// </summary>
+
 #pragma once
 
 #include "Base.h"
@@ -8,8 +12,5 @@ public:
 	Enemy();
 	~Enemy();
 
-	void Initialize(std::shared_ptr<Camera> camera);
 	void Update();
-	void Render();
 };
-
