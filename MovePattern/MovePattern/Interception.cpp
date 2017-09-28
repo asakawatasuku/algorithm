@@ -6,7 +6,7 @@ using namespace DirectX::SimpleMath;
 //---------------------------------------
 // èâä˙ê›íË
 //---------------------------------------
-void Interception::Initialize(shared_ptr<Base> object, shared_ptr<Base> target) {
+void Interception::Initialize(Base* object, Base* target) {
 	m_object = object;
 	m_target = target;
 	m_stepCount = 0;
@@ -110,6 +110,10 @@ void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 	}
 
 	now = m_nextStepPos[m_stepCount++];
+}
+
+void Interception::Finalize(){
+
 }
 
 

@@ -14,9 +14,9 @@ private:
 	DirectX::SimpleMath::Vector3 m_ttd;
 
 public:
-	void Initialize(std::shared_ptr<Base> object, std::shared_ptr<Base> target)override;
+	void Initialize(Base* object, Base* target)override;
 	void Update();
-
+	void Finalize();
 
 };
 
