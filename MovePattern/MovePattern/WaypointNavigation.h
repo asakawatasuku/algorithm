@@ -42,7 +42,7 @@ private:
 	VECTOR m_target_waypoint;
 	std::vector<VECTOR> m_waypoints_;
 public:
-	//void Initialize(std::shared_ptr<Base> object, std::shared_ptr<Base> target);
+	//void Initialize(Base* object, Base* target);
 
 	void CreateGraph();
 	int GetNextNode(const int start, const int end);

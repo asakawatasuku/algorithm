@@ -34,7 +34,7 @@ void Enemy::Initialize(const std::wstring& file_name)
 {
 	Base::Initialize(file_name);
 
-	m_moving_pattern->Initialize(, m_target);
+	m_moving_pattern->Initialize(this, m_target);
 }
 
 
@@ -54,5 +54,6 @@ void Enemy::Update()
 /// </summary>
 void Enemy::Finalize()
 {
+	m_moving_pattern->Finalize();
 	delete m_target;
 }

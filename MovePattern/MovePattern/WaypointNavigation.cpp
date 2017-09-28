@@ -70,7 +70,6 @@ void WaypointNavigation::Update()
 
 void WaypointNavigation::Finalize()
 {
-	MovingPattern::Finalize();
 }
 
 
