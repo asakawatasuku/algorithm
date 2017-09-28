@@ -1,13 +1,17 @@
 #include "BreadCrumb.h"
 
+using namespace std;
+
 const float BreadCrumb::BREAD_CRUMB_MAX_RANGE = 60.0f;
 const float BreadCrumb::BREAD_COLLISION_RANGE = 15.0f;
 
 /// <summary>
 /// ‰Šú‰»ŠÖ”
 /// </summary>
-void BreadCrumb::Initiarize()
+void BreadCrumb::Initiarize(shared_ptr<Base> object, shared_ptr<Base> target)
 {
+	m_object = object;
+	m_target = target;
 }
 
 /// <summary>

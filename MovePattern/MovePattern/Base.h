@@ -18,7 +18,7 @@ protected:
 	DirectX::SimpleMath::Vector3 m_rot;
 	DirectX::SimpleMath::Vector3 m_pos;	// ç¿ïW
 	DirectX::SimpleMath::Matrix m_world;
-	float m_speed;
+	DirectX::SimpleMath::Vector3 m_speed;
 
 public:
 	static void StaticInitialize(std::shared_ptr<Camera> camera);
@@ -29,7 +29,7 @@ public:
 
 	void LoadModel(const std::wstring& file_name);
 
-	float GetSpeed()
+	DirectX::SimpleMath::Vector3 GetSpeed()
 	{
 		return m_speed;
 	}
@@ -38,6 +38,10 @@ public:
 		return m_pos;
 	}
 
+	void SetSpeed(DirectX::SimpleMath::Vector3 speed)
+	{
+		m_speed = speed;
+	}
 	void SetPos(DirectX::SimpleMath::Vector3 pos)
 	{
 		m_pos = pos;

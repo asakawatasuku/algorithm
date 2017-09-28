@@ -3,8 +3,9 @@
 #include <SimpleMath.h>
 #include <vector>
 #include "MathGroup.h"
+#include "MovingPattern.h"
 
-class BreadCrumb
+class BreadCrumb:public MovingPattern
 {
 private:
 	static const float BREAD_CRUMB_MAX_RANGE;	// パンくずの最大の範囲
@@ -17,7 +18,7 @@ private:
 
 public:
 	// 初期化関数
-	void Initiarize();
+	void Initiarize(std::shared_ptr<Base> object, std::shared_ptr<Base> target);
 	// 更新
 	void Update(VECTOR& pos,float& direction,float velocity);
 	// パンくずを落とす

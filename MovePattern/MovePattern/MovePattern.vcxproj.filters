@@ -25,6 +25,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="BreadCrumb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="BreadCrumb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

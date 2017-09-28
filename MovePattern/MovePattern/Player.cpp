@@ -29,30 +29,25 @@ Player::~Player()
 /// </summary>
 void Player::Update()
 {
-	m_speed = 0.0f;
-	Vector3 dir;
+	m_speed = Vector3::Zero;
 	if (m_keyboard->IsPressed(DirectX::Keyboard::Keys::Up))
 	{
-		m_speed = 0.2f;
-		dir = Vector3::Forward * m_speed;
+		m_speed = Vector3::Forward * 0.2f;
 	}
 	if (m_keyboard->IsPressed(DirectX::Keyboard::Keys::Down))
 	{
-		m_speed = 0.2f;
-		dir = Vector3::Backward * m_speed;
+		m_speed = Vector3::Backward * 0.2f;
 	}
 	if (m_keyboard->IsPressed(DirectX::Keyboard::Keys::Right))
 	{
-		m_speed = 0.2f;
-		dir = Vector3::Right * m_speed;
+		m_speed = Vector3::Right * 0.2f;
 	}
 	if (m_keyboard->IsPressed(DirectX::Keyboard::Keys::Left))
 	{
-		m_speed = 0.2f;
-		dir = Vector3::Left * m_speed;
+		m_speed = Vector3::Left * 0.2f;
 	}
 
-	m_pos += dir;
+	m_pos += m_speed;
 
 	Base::Update();
 }

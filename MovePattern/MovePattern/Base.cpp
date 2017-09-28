@@ -18,8 +18,7 @@ void Base::Initialize(const std::wstring& file_name)
 {
 	LoadModel(file_name);
 
-	m_scale = Vector3(1.0f);
-	m_speed = 0.0f;
+	m_scale = Vector3(1.0f);	
 }
 
 

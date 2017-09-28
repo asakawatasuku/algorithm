@@ -6,10 +6,6 @@
 
 class Pursuit : public MovingPattern
 {
-public:
-	Pursuit();
-	~Pursuit();
-
 private:
 	// ç¿ïWÇÃç∑
 	DirectX::SimpleMath::Vector3 m_Dif_position;
