@@ -23,9 +23,12 @@ protected:
 public:
 	static void StaticInitialize(std::shared_ptr<Camera> camera);
 public:
+	virtual ~Base() {}
+
 	virtual void Initialize(const std::wstring& file_name);
 	virtual void Update();
 	virtual void Render();
+	virtual void Finalize() = 0;
 
 	void LoadModel(const std::wstring& file_name);
 

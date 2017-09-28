@@ -80,8 +80,11 @@ void MyGame::Render(const DX::StepTimer& timer) {
 
 // 終了処理をおこなう Finalize Game
 void MyGame::Finalize() {
+	m_enemy->Finalize();
 	// Enemyオブジェクトをリセットする
 	m_enemy.reset();
+
+	m_player->Finalize();
 	// Playerオブジェクトをリセットする
 	m_player.reset();
 

@@ -22,8 +22,9 @@ public:
 	WaypointNavigation();
 	~WaypointNavigation();
 
-	void Initialize(std::shared_ptr<Base> object, std::shared_ptr<Base> target);
+	void Initialize(Base* object, Base* target);
 	void Update();
+	void Finalize();
 private:
 	void Move();
 	void Wait();

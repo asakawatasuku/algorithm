@@ -16,6 +16,7 @@ public:
 	~Player();
 
 	void Update();
+	void Finalize();
 
 	void SetKeyboard(KeyboardUtil* keyboard)
 	{

@@ -13,3 +13,7 @@ Ground::Ground()
 Ground::~Ground()
 {
 }
+
+void Ground::Finalize()
+{
+}

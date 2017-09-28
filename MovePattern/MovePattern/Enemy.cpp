@@ -12,6 +12,8 @@ Enemy::Enemy()
 {
 	m_scale = DirectX::SimpleMath::Vector3(1.0f);
 	m_pos = DirectX::SimpleMath::Vector3(5.0f, 0.0f, 0.0f);
+
+	m_moving_pattern = std::make_unique<MovingPattern>();
 }
 
 
@@ -26,9 +28,31 @@ Enemy::~Enemy()
 
 
 /// <summary>
+/// ‰Šú‰»ˆ—
+/// </summary>
+void Enemy::Initialize(const std::wstring& file_name)
+{
+	Base::Initialize(file_name);
+
+	m_moving_pattern->Initialize(, m_target);
+}
+
+
+
+/// <summary>
 /// XVˆ—
 /// </summary>
 void Enemy::Update()
 {
 	Base::Update();
+}
+
+
+
+/// <summary>
+/// ‰ğ•úˆ—
+/// </summary>
+void Enemy::Finalize()
+{
+	delete m_target;
 }

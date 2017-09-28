@@ -56,3 +56,13 @@ void Player::Update()
 
 	Base::Update();
 }
+
+
+
+/// <summary>
+/// ‰ğ•úˆ—
+/// </summary>
+void Player::Finalize()
+{
+	delete m_keyboard;
+}

@@ -5,12 +5,25 @@
 #pragma once
 
 #include "Base.h"
+#include "MovingPattern.h"
 
 class Enemy :public Base
 {
+private:
+	// ˆÚ“®ƒpƒ^[ƒ“
+	std::unique_ptr<MovingPattern> m_moving_pattern;
+	// ’ÇÕ‘ÎÛ
+	Base* m_target;
 public:
 	Enemy();
 	~Enemy();
 
+	void Initialize(const std::wstring& file_name);
 	void Update();
+	void Finalize();
+
+	void SetTarget(Base* target)
+	{
+		m_target = target;
+	}
 };
