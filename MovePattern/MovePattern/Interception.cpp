@@ -47,7 +47,7 @@ void Interception::Update() {
 	m_Sr.Normalize();
 	m_Vr.Normalize();
 
-	//  Ú‹ßŠÔŠÔ
+	//  Ú‹ßŠÔ
 	m_Tc = 0;
 	double distance = sqrt(m_Sr.x * m_Sr.x + m_Sr.z * m_Sr.z);
 	double velcity = sqrt(m_Vr.x * m_Vr.x + m_Vr.z * m_Vr.z);
