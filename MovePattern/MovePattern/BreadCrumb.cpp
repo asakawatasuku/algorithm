@@ -8,7 +8,7 @@ const float BreadCrumb::BREAD_COLLISION_RANGE = 15.0f;
 /// <summary>
 /// ‰Šú‰»ŠÖ”
 /// </summary>
-void BreadCrumb::Initiarize(shared_ptr<Base> object, shared_ptr<Base> target)
+void BreadCrumb::Initiarize(Base* object, Base* target)
 {
 	m_object = object;
 	m_target = target;
@@ -98,4 +98,11 @@ void BreadCrumb::DropBreadCrumb(const VECTOR& pos)
 	// V‚µ‚¢ƒpƒ“‚­‚¸‚ğ“o˜^
 	m_bread_array[0] = pos;
 
+}
+
+/// <summary>
+/// I—¹ˆ—
+/// </summary>
+void BreadCrumb::Finalize()
+{
 }

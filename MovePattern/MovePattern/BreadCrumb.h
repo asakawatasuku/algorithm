@@ -18,10 +18,12 @@ private:
 
 public:
 	// 初期化関数
-	void Initiarize(std::shared_ptr<Base> object, std::shared_ptr<Base> target);
+	void Initiarize(Base* object, Base* target);
 	// 更新
 	void Update(VECTOR& pos,float& direction,float velocity);
 	// パンくずを落とす
 	void DropBreadCrumb(const VECTOR& pos);
+	// 終了処理
+	void Finalize();
 };
 
