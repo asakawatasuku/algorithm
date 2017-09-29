@@ -26,6 +26,7 @@ void MyGame::Initialize() {
 
 	// Enemyオブジェクトを生成する Create Enemy object
 	m_enemy = make_unique<Enemy>();
+	m_enemy->SetTarget(m_player.get());
 	// Enemyオブジェクトを初期化する Initialize Enemy object
 	m_enemy->Initialize(L"enemy");
 
