@@ -14,7 +14,7 @@ private:
 	// 相対距離
 	DirectX::SimpleMath::Vector3 m_Sr;	
 	// 接近時間
-	double m_Tc;			
+	double m_Tc;
 
 	// プレイヤーの現在座標
 	DirectX::SimpleMath::Vector3 m_Sp;		
