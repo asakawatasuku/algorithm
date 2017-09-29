@@ -2,6 +2,7 @@
 /// 移動パターンの基底クラス
 /// </summary>
 
+#pragma once
 #include "Base.h"
 #include <memory>
 

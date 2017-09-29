@@ -38,8 +38,11 @@ private:
 
 public:
 	void Initialize(Base* object, Base* target);
-	void Update();
 	void UpdateBresenham(DirectX::SimpleMath::Vector3& now, DirectX::SimpleMath::Vector3 &target);
 	void Finalize();
+
+private:
+	void Update();
+
 
 };
