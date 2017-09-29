@@ -108,8 +108,6 @@ protected:
     // ループタイマーを描画する Rendering loop timer
     DX::StepTimer timer;
 
-	// キーボード Keyboard
-	std::unique_ptr<DirectX::Keyboard> keyboard;
 	// スプライトバッチ SpriteBatch
 	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
 	// フォント Font

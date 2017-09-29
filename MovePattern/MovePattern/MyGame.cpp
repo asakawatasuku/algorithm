@@ -81,6 +81,9 @@ void MyGame::Render(const DX::StepTimer& timer) {
 
 // 終了処理をおこなう Finalize Game
 void MyGame::Finalize() {
+	// キーボードをリセットする
+	m_keyboard.reset();
+
 	m_enemy->Finalize();
 	// Enemyオブジェクトをリセットする
 	m_enemy.reset();
@@ -88,6 +91,10 @@ void MyGame::Finalize() {
 	m_player->Finalize();
 	// Playerオブジェクトをリセットする
 	m_player.reset();
+
+	m_ground->Finalize();
+	// 地面オブジェクトをリセットする
+	m_ground.reset();
 
 	// 基本クラスのFinalizeを呼び出す
 	Game::Finalize();

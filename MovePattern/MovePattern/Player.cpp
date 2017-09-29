@@ -57,5 +57,4 @@ void Player::Update()
 /// </summary>
 void Player::Finalize()
 {
-	delete m_keyboard;
 }
