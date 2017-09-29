@@ -2,6 +2,8 @@
 /// ウェイポイントナビゲーションクラス
 /// </summary>
 
+#pragma once
+
 #include "MovingPattern.h"
 #include "MathGroup.h"
 #include <d3d11.h>

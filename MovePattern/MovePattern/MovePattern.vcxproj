@@ -160,7 +160,8 @@
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="BreadCrumb.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="dx.h" />
@@ -174,7 +175,6 @@
     <ClInclude Include="MathGroup.h" />
     <ClInclude Include="MovingPattern.h" />
     <ClInclude Include="MyGame.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pursuit.h" />
     <ClInclude Include="StepTimer.h" />
@@ -184,7 +184,8 @@
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BreadCrumb.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -196,12 +197,6 @@
     <ClCompile Include="KeyboardUtil.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyGame.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pursuit.cpp" />
     <ClCompile Include="WaypointNavigation.cpp" />
