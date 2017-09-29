@@ -47,7 +47,11 @@ void Interception::Update() {
 	}
 
 	//LOSƒAƒ‹ƒSƒŠƒYƒ€‚ðŽg‚Á‚ÄˆÚ“®.
-	UpdateBresenham(m_Sp, m_point);
+	UpdateBresenham(m_Se, m_point);
+
+	Vector3 tmp = m_object->GetPos() + (m_object->GetPos() - m_Se) * 0.05f;
+
+	m_object->SetPos(-tmp);
 }
 
 void Interception::UpdateBresenham(Vector3& now, Vector3 &target)

@@ -6,13 +6,13 @@
 
 #include "Base.h"
 #include "MovingPattern.h"
-#include "Pursuit.h"
+#include "Interception.h"
 
 class Enemy :public Base
 {
 private:
 	// ˆÚ“®ƒpƒ^[ƒ“
-	std::unique_ptr<Pursuit> m_moving_pattern;
+	std::unique_ptr<Interception> m_moving_pattern;
 	// ’ÇÕ‘ÎÛ
 	Base* m_target;
 public:

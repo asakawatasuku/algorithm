@@ -118,7 +118,7 @@ void Game::Update(StepTimer const& timer)
 	camera->Update();
 
 	// カメラの位置
-	Vector3 eyepos(0.0f, 2.0f, 5.0f);
+	Vector3 eyepos(0.0f, 2.0f, 10.0f);
 	// 上方向ベクトル
 	Vector3 upvec(0, 1, 0);
 
