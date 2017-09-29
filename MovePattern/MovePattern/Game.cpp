@@ -96,6 +96,8 @@ void Game::Initialize() {
 
 // 終了処理をおこなう
 void Game::Finalize() {
+	// カメラを破壊する
+	this->camera.reset();
 	// コモンステートを破棄する
 	this->commonStates.reset();
 	// Fontオブジェクトを破棄する
