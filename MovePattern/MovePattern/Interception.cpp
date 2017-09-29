@@ -113,7 +113,7 @@ void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 }
 
 void Interception::Finalize(){
-
+	MovingPattern::Finalize();
 }
 
 

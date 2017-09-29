@@ -29,6 +29,6 @@ void Pursuit::Update() {
 }
 
 void Pursuit::Finalize(){
-
+	MovingPattern::Finalize();
 }
 	
