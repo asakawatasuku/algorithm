@@ -16,9 +16,5 @@ protected:
 	Base* m_target;
 public:
 	virtual void Initialize(Base* object, Base* target) = 0;
-	virtual void Finalize()
-	{
-		delete m_object;
-		delete m_target;
-	}
+	virtual void Finalize() = 0;
 };
