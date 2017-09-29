@@ -32,22 +32,30 @@ public:
 
 	void LoadModel(const std::wstring& file_name);
 
-	DirectX::SimpleMath::Vector3 GetSpeed()
+	DirectX::SimpleMath::Vector3 GetRot()
 	{
-		return m_speed;
+		return m_rot;
 	}
 	DirectX::SimpleMath::Vector3 GetPos()
 	{
 		return m_pos;
 	}
-
-	void SetSpeed(DirectX::SimpleMath::Vector3 speed)
+	DirectX::SimpleMath::Vector3 GetSpeed()
 	{
-		m_speed = speed;
+		return m_speed;
+	}
+
+	void SetRot(DirectX::SimpleMath::Vector3 rot)
+	{
+		m_rot = rot;
 	}
 	void SetPos(DirectX::SimpleMath::Vector3 pos)
 	{
 		m_pos = pos;
+	}
+	void SetSpeed(DirectX::SimpleMath::Vector3 speed)
+	{
+		m_speed = speed;
 	}
 };
 

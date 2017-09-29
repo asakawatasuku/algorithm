@@ -13,16 +13,17 @@ private:
 
 private:
 	const int m_bread_num = 20;					// パンくずの位置リストサイズ
-	VECTOR* m_bread_array;						// パンくずの位置リスト
-	VECTOR m_target_bread;						// ターゲットのパンくず
+	const float m_angle = 30.0f;
+	DirectX::SimpleMath::Vector3* m_bread_array;	// パンくずの位置リスト
+	DirectX::SimpleMath::Vector3 m_target_bread;	// ターゲットのパンくず
 
 public:
 	// 初期化関数
-	void Initiarize(Base* object, Base* target);
+	void Initialize(Base* object, Base* target);
 	// 更新
-	void Update(VECTOR& pos,float& direction,float velocity);
+	void Update();
 	// パンくずを落とす
-	void DropBreadCrumb(const VECTOR& pos);
+	void DropBreadCrumb();
 	// 終了処理
 	void Finalize();
 };

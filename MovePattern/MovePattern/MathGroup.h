@@ -1,3 +1,7 @@
+/// <summary>
+/// 数学関連
+/// </summary>
+
 #pragma once
 
 #include <d3d11.h>
@@ -39,43 +43,13 @@ struct SVector3D
 //数学関連の関数群
 namespace LMath
 {
-	VECTOR::DataType GetScalar(VECTOR vec)
-	{
-		return sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
-	}
+	float GetScalar(DirectX::SimpleMath::Vector3 vec);
 
-	VECTOR Normalize(VECTOR vec)
-	{
-		const VECTOR::DataType vecLen = GetScalar(vec);
-		vec.x /= vecLen;
-		vec.y /= vecLen;
-		vec.z /= vecLen;
-		return vec;
-	}
+	DirectX::SimpleMath::Vector3 Normalize(DirectX::SimpleMath::Vector3 vec);
 
-	VECTOR Normalize(VECTOR from, VECTOR to)
-	{
-		VECTOR tmp = to - from;
-		return Normalize(tmp);
-	}
+	DirectX::SimpleMath::Vector3 Normalize(DirectX::SimpleMath::Vector3 from, DirectX::SimpleMath::Vector3 to);
 
-	float GetRotateRad(const float from, const float to)
-	{
-		//角度候補1
-		const float dir1st = (to - from);
-		const float dir1stVal = fabsf(dir1st);
+	float GetRotateRad(const float from, const float to);
 
-		//角度候補2
-		const float dir2ndVal = (DirectX::XM_PI - dir1stVal);
-		const float dir2nd = ((dir1st >= 0.0f) ? -1.0f : 1.0f) * dir2ndVal;
-
-		//絶対値が小さい方を採用
-		return (dir1stVal > dir2ndVal) ? dir2nd : dir1st;
-	}
-
-	bool IsCollisionCircle(const VECTOR& pos1, const VECTOR& pos2, const float r)
-	{
-		VECTOR tmp = pos1 - pos2;
-		return (GetScalar(tmp) < r);
-	}
+	bool IsCollisionCircle(const DirectX::SimpleMath::Vector3& pos1, const DirectX::SimpleMath::Vector3& pos2, const float r);
 };

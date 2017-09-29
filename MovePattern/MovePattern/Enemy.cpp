@@ -3,6 +3,8 @@
 /// </summary>
 
 #include "Enemy.h"
+#include "BreadCrumb.h"
+#include "Pursuit.h"
 
 
 /// <summary>
@@ -13,7 +15,7 @@ Enemy::Enemy()
 	m_scale = DirectX::SimpleMath::Vector3(1.0f);
 	m_pos = DirectX::SimpleMath::Vector3(5.0f, 0.0f, 0.0f);
 
-	m_moving_pattern = std::make_unique<Interception>();
+	m_moving_pattern = std::make_unique<Pursuit>();
 }
 
 

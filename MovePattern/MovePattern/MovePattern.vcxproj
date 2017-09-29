@@ -160,7 +160,8 @@
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="BreadCrumb.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="dx.h" />
@@ -183,7 +184,8 @@
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BreadCrumb.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -194,6 +196,7 @@
     <ClCompile Include="Interception.cpp" />
     <ClCompile Include="KeyboardUtil.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MathGroup.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pursuit.cpp" />

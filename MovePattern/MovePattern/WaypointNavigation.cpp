@@ -3,7 +3,6 @@
 /// </summary>
 
 #include "WaypointNavigation.h"
-#include <ctime>
 #include <memory>
 
 
@@ -20,8 +19,6 @@ WaypointNavigation::WaypointNavigation()
 	, m_min_dist(0.0f)
 	, m_move_delay_time(0.0f)
 {
-	// ランダムの初期化
-	srand(static_cast<unsigned int>(time(nullptr)));
 }
 
 
@@ -111,12 +108,12 @@ void WaypointNavigation::CreateGraph()
 {
 	// ウェイポイント生成
 	{
-		vector<VECTOR> waypoint_array = m_waypoints_;
-		const int waypoint_num = m_waypoints_.size();
+		vector<Vector3> waypoint_array = m_waypoints;
+		const int waypoint_num = m_waypoints.size();
 		const int POINT_NUM = 4;
 		for (int i = 0; i < waypoint_num; i++)
 		{
-			VECTOR pos;
+			Vector3 pos;
 			pos.x = 50.0f + (100.0f * (float)(i % POINT_NUM));
 			pos.z = 50.0f + (100.0f * (float)(i / POINT_NUM));
 			waypoint_array[i] = pos;
@@ -233,7 +230,7 @@ int WaypointNavigation::GetNextNode(const int start, const int end)
 /// <param name="now_dir"></param>
 /// <param name="now_vel">現在の速度</param>
 /// <param name="target_pos">目標座標</param>
-void WaypointNavigation::Update(VECTOR& now_pos, float now_dir, const float now_vel, const VECTOR target_pos)
+void WaypointNavigation::Update(Vector3& now_pos, float now_dir, const float now_vel, const Vector3 target_pos)
 {
 	if (m_target_index < 0)
 	{
@@ -259,7 +256,7 @@ void WaypointNavigation::Update(VECTOR& now_pos, float now_dir, const float now_
 	{
 		// 目標地点が有効なら、そこに向かう
 
-		VECTOR dir_vec = LMath::Normalize(now_pos, m_target_waypoint);
+		Vector3 dir_vec = LMath::Normalize(now_pos, m_target_waypoint);
 
 		now_dir = ADJUST_RAD(atan2f(-dir_vec.z, dir_vec.x));
 
@@ -277,10 +274,10 @@ void WaypointNavigation::Update(VECTOR& now_pos, float now_dir, const float now_
 /// </summary>
 /// <param name="pos"></param>
 /// <returns></returns>
-int WaypointNavigation::SearchNearestPoint(const VECTOR& pos)
+int WaypointNavigation::SearchNearestPoint(const Vector3& pos)
 {
-	vector<VECTOR> waypoint_array = m_waypoints_;
-	const int waypoint_num = m_waypoints_.size();
+	vector<Vector3> waypoint_array = m_waypoints;
+	const int waypoint_num = m_waypoints.size();
 	if (!(!waypoint_array.empty() && (waypoint_num > 0)))
 	{
 		return -1;
@@ -310,13 +307,13 @@ int WaypointNavigation::SearchNearestPoint(const VECTOR& pos)
 /// </summary>
 /// <param name="index"></param>
 /// <returns></returns>
-VECTOR WaypointNavigation::GetWaypointPos(const int& index)
+Vector3 WaypointNavigation::GetWaypointPos(const int& index)
 {
-	VECTOR tmp;
+	Vector3 tmp;
 	tmp.x = tmp.y = tmp.z = -1.0f;
 
-	vector<VECTOR> waypoint_array = m_waypoints_;
-	const int waypoint_num = m_waypoints_.size();
+	vector<Vector3> waypoint_array = m_waypoints;
+	const int waypoint_num = m_waypoints.size();
 	if (!(!waypoint_array.empty() && (waypoint_num > 0)))
 	{
 		return tmp;

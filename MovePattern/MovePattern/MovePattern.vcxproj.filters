@@ -44,6 +44,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="BreadCrumb.cpp" />
     <ClCompile Include="Getaway.cpp" />
+    <ClCompile Include="MathGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

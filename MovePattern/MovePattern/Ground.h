@@ -9,8 +9,5 @@
 class Ground :public Base
 {
 public:
-	Ground();
-	~Ground();
-
 	void Finalize();
 };

@@ -16,5 +16,6 @@ protected:
 	Base* m_target;
 public:
 	virtual void Initialize(Base* object, Base* target) = 0;
+	//virtual void Update() = 0;
 	virtual void Finalize() = 0;
 };

@@ -1,4 +1,5 @@
 #include "MyGame.h"
+#include <ctime>
 
 using namespace Microsoft;
 using namespace DirectX;
@@ -11,6 +12,9 @@ MyGame::MyGame(int width, int height) : Game(width, height){
 
 // MyGameオブジェクトを初期する Initialize MyGame object
 void MyGame::Initialize() {
+	// ランダムの初期化
+	srand(static_cast<unsigned int>(time(nullptr)));
+
 	// 基本クラスのInitializeを呼び出す
 	Game::Initialize();
 

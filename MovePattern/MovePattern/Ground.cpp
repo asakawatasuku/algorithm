@@ -5,15 +5,9 @@
 #include "Ground.h"
 
 
-Ground::Ground()
-{
-}
-
-
-Ground::~Ground()
-{
-}
-
+/// <summary>
+/// I—¹ˆ—
+/// </summary>
 void Ground::Finalize()
 {
 }

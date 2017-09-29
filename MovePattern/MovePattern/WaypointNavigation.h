@@ -37,21 +37,21 @@ private:
 
 private:
 	static const int WAY_POINT_MAX_NUM = 20;
-#define INF_COST (1 << 28)
+	static const int INF_COST = 1 << 28;
 	int m_edge_cost[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
 	int m_shortest_path[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
 	int m_target_index;
-	VECTOR m_target_waypoint;
+	DirectX::SimpleMath::Vector3 m_target_waypoint;
 	std::vector<VECTOR> m_waypoints_;
 public:
 	//void Initialize(Base* object, Base* target);
 
 	void CreateGraph();
 	int GetNextNode(const int start, const int end);
-	void Update(VECTOR& now_pos, float now_dir,
-		const float now_vel, const VECTOR target_pos);
-	int SearchNearestPoint(const VECTOR& pos);
-	VECTOR GetWaypointPos(const int& index);
+	void Update(DirectX::SimpleMath::Vector3& now_pos, float now_dir,
+		const float now_vel, const DirectX::SimpleMath::Vector3 target_pos);
+	int SearchNearestPoint(const DirectX::SimpleMath::Vector3& pos);
+	DirectX::SimpleMath::Vector3 GetWaypointPos(const int& index);
 
 //////////////////////////////////////////////////
 };
