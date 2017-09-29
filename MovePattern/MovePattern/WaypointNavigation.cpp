@@ -2,10 +2,9 @@
 /// ウェイポイントナビゲーションクラス
 /// </summary>
 
-#include "WaypointNavigation.h"
 #include <ctime>
 #include <memory>
-
+#include "WaypointNavigation.h"
 
 using namespace std;
 using namespace DirectX::SimpleMath;
