@@ -3,10 +3,7 @@
 /// </summary>
 
 #pragma once
-<<<<<<< HEAD
-=======
 
->>>>>>> 654ea966a3efe9126b795e385db2ae1acb73bc9d
 #include "Base.h"
 #include <memory>
 
