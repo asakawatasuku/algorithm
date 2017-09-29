@@ -1,8 +1,8 @@
-#include "Escape.h"
+#include "Getaway.h"
 
 using namespace DirectX::SimpleMath;
 
-void Escape::Initialize(Base * object, Base * target)
+void Getaway::Initialize(Base * object, Base * target)
 {
 	m_object = object;
 	m_target = target;
@@ -10,7 +10,7 @@ void Escape::Initialize(Base * object, Base * target)
 
 }
 
-void Escape::Update()
+void Getaway::Update()
 {
 	// プレイヤー座標から敵座標の差を求める
 	m_dif_position = m_object->GetPos() - m_target->GetPos();
@@ -24,6 +24,6 @@ void Escape::Update()
 
 }
 
-void Escape::Finalize()
+void Getaway::Finalize()
 {
 }

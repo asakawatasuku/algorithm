@@ -3,9 +3,7 @@
 #include <SimpleMath.h>
 
 #include "MovingPattern.h"
-
-class Escape : public MovingPattern
-{
+class Getaway : public MovingPattern{
 private:
 	// ç¿ïWÇÃç∑
 	DirectX::SimpleMath::Vector3 m_dif_position;

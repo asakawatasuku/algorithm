@@ -166,8 +166,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="dx.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Escape.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Getaway.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Interception.h" />
@@ -189,8 +189,8 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Escape.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Getaway.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Interception.cpp" />
