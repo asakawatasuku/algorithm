@@ -27,5 +27,4 @@ void Escape::Update()
 
 void Escape::Finalize()
 {
-	MovingPattern::Finalize();
 }
