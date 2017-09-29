@@ -2,6 +2,8 @@
 /// 移動パターンの基底クラス
 /// </summary>
 
+#pragma once
+
 #include "Base.h"
 #include <memory>
 
@@ -14,5 +16,9 @@ protected:
 	Base* m_target;
 public:
 	virtual void Initialize(Base* object, Base* target) = 0;
-	virtual void Finalize() = 0;
+	virtual void Finalize()
+	{
+		delete m_object;
+		delete m_target;
+	}
 };

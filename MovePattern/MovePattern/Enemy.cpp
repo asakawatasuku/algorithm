@@ -13,7 +13,7 @@ Enemy::Enemy()
 	m_scale = DirectX::SimpleMath::Vector3(1.0f);
 	m_pos = DirectX::SimpleMath::Vector3(5.0f, 0.0f, 0.0f);
 
-	m_moving_pattern = std::make_unique<MovingPattern>();
+	m_moving_pattern = std::make_unique<Pursuit>();
 }
 
 
@@ -44,6 +44,8 @@ void Enemy::Initialize(const std::wstring& file_name)
 /// </summary>
 void Enemy::Update()
 {
+	m_moving_pattern->Update();
+
 	Base::Update();
 }
 
@@ -55,5 +57,4 @@ void Enemy::Update()
 void Enemy::Finalize()
 {
 	m_moving_pattern->Finalize();
-	delete m_target;
 }

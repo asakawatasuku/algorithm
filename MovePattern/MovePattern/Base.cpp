@@ -31,6 +31,7 @@ void Base::Update()
 	Matrix rot_mat_y = Matrix::CreateRotationY(m_rot.y);
 	Matrix rot_mat = rot_mat_z * rot_mat_x * rot_mat_y;
 
+	m_pos += m_speed;
 	Matrix trans_mat = Matrix::CreateTranslation(m_pos);
 
 	m_world = scale_mat * rot_mat * trans_mat;

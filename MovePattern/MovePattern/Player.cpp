@@ -47,8 +47,6 @@ void Player::Update()
 		m_speed = Vector3::Left * 0.2f;
 	}
 
-	m_pos += m_speed;
-
 	Base::Update();
 }
 

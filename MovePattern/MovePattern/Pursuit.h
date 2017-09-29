@@ -8,15 +8,14 @@ class Pursuit : public MovingPattern
 {
 private:
 	// À•W‚Ì·
-	DirectX::SimpleMath::Vector3 m_Dif_position;
+	DirectX::SimpleMath::Vector3 m_dif_position;
 
-	// ’ÇÕˆÚ“®—Ê(Tracking travel distance)
-	DirectX::SimpleMath::Vector3 m_ttd;
+	// ’ÇÕˆÚ“®—Ê(Pusuit moving distance)
+	DirectX::SimpleMath::Vector3 m_pmd;
 
 public:
-	void Initialize(Base* object, Base* target)override;
+	void Initialize(Base* object, Base* target) override;
 	void Update();
 	void Finalize();
 
 };
-
