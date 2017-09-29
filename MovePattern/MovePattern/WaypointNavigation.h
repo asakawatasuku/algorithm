@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "MovingPattern.h"
-#include "MathGroup.h"
 #include <d3d11.h>
 #include <SimpleMath.h>
+#include "MovingPattern.h"
+#include "MathGroup.h"
 #include <vector>
 
 class WaypointNavigation :public MovingPattern
