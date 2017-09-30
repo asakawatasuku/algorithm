@@ -13,6 +13,8 @@ void BreadCrumb::Initialize(Base* object, Base* target)
 {
 	m_object = object;
 	m_target = target;
+
+	m_bread_array = new Vector3();
 }
 
 /// <summary>
@@ -113,4 +115,5 @@ void BreadCrumb::DropBreadCrumb()
 /// </summary>
 void BreadCrumb::Finalize()
 {
+	delete[] m_bread_array;
 }

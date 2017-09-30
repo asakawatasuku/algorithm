@@ -15,7 +15,7 @@ Enemy::Enemy()
 	m_scale = DirectX::SimpleMath::Vector3(1.0f);
 	m_pos = DirectX::SimpleMath::Vector3(5.0f, 0.0f, 0.0f);
 
-	m_moving_pattern = std::make_unique<Pursuit>();
+	m_moving_pattern = std::make_unique<BreadCrumb>();
 }
 
 
@@ -46,6 +46,7 @@ void Enemy::Initialize(const std::wstring& file_name)
 /// </summary>
 void Enemy::Update()
 {
+	m_moving_pattern->DropBreadCrumb();
 	m_moving_pattern->Update();
 
 	Base::Update();
