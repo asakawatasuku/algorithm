@@ -30,10 +30,13 @@ private:
 	// 迎撃移動量
 	//DirectX::SimpleMath::Vector3 m_movement;
 
-#define NEXT_POS_MAX 1000
-	DirectX::SimpleMath::Vector3   m_prevTargetPos;            //1フレーム前の目標地点.
-	DirectX::SimpleMath::Vector3   m_nextStepPos[NEXT_POS_MAX];//移動経路.
-	int     m_stepCount;                //ステップ数.
+#define NEXT_POS_MAX 10000
+	//1フレーム前の目標地点
+	DirectX::SimpleMath::Vector3   m_prevTargetPos;
+	//移動経路
+	DirectX::SimpleMath::Vector3   m_nextStepPos[NEXT_POS_MAX];
+	//ステップ数
+	int     m_stepCount;
 
 
 public:
