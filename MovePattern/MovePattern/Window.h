@@ -42,7 +42,7 @@ public:
 
 		AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 		// ウィンドウを生成する Create window
-		HWND hWnd = CreateWindowEx(0, L"DirectXgameFrameworkWindowClass", L"DirectXgameFramework", WS_OVERLAPPEDWINDOW,
+		HWND hWnd = CreateWindowEx(0, L"DirectXgameFrameworkWindowClass", L"経路探索アルゴリズム", WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance, nullptr);
 
 		// TODO: CreateWindowEx(WS_EX_TOPMOST, L"DirectXgameFrameworkWindowClass", L"DirectXgameFramework", WS_POPUP,...)
