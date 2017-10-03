@@ -69,6 +69,9 @@ void Enemy::Initialize(const std::wstring& file_name)
 void Enemy::Update()
 {
 	//m_moving_pattern->DropBreadCrumb();
+<<<<<<< HEAD
+	m_moving_pattern->Update();
+=======
 	//m_moving_pattern->Update();
 
 	m_waypoint->Update();
@@ -77,6 +80,7 @@ void Enemy::Update()
 }
 
 
+>>>>>>> f73c651ff33588c05d3f5ee515fb0c76e9469f80
 
 /// <summary>
 /// •`‰æˆ—

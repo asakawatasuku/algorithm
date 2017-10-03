@@ -9,7 +9,7 @@ using namespace DirectX::SimpleMath;
 void Interception::Initialize(Base* object, Base* target) {
 	m_object = object;
 	m_target = target;
-	m_stepCount = 0;
+	m_stepCount = 1;
 	m_Vp = Vector3::Zero;
 	m_Ve = Vector3::Zero;
 	m_Vr = Vector3::Zero;
@@ -36,23 +36,22 @@ void Interception::Update() {
 	double distance = sqrt(m_Sr.x * m_Sr.x + m_Sr.z * m_Sr.z);
 	double velocity = sqrt(m_Vr.x * m_Vr.x + m_Vr.z * m_Vr.z);
 
-	//if (!(0.000f <= velocity && velocity <= 0.000f)) 
+	//if (!(0.000f <= velocity && velocity <= 0.000f))
 	{
 		m_Tc = distance / velocity;
 		m_Tc = fabs(m_Tc);
 	}
 	//予測ポイントを目標地点に設定
 	m_point.x = m_Sp.x + (LONG)((double)m_Vr.x * m_Tc);
-	m_point.z = m_Sp.z + (LONG)((double)m_Vr.z * m_Tc);
-	
+	m_point.z = m_Sp.z + (LONG)((double)m_Vr.z * m_Tc);	
 
 	// 目標地点に到達したか
 	if (m_object->GetPos() != m_point) {
 
 		//LOSアルゴリズムを使って移動
-		UpdateBresenham(m_Se, m_point);
+		UpdateBresenham(m_Se, -m_point);
 
-		Vector3 tmp = m_object->GetSpeed() - (m_target->GetSpeed() + m_Se) * 0.005;
+		Vector3 tmp = m_object->GetSpeed() + (m_target->GetSpeed() + m_Se) * 0.0005;
 
 		m_object->SetSpeed(tmp);
 	}
@@ -91,8 +90,7 @@ void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 		deltaX = abs(deltaX);
 		deltaZ = abs(deltaZ);
 
-		if (deltaZ > deltaX) {
-			//Z方向が長い
+		if (deltaZ > deltaX) { //Z方向が長い
 			int f = (deltaX << 1) - deltaZ;   //条件式初期値
 			for (int i = 0; i < deltaZ; ++i) {
 				if (f >= 0) {
@@ -105,8 +103,7 @@ void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 				m_nextStepPos[i] = pos;
 			}
 		}
-		else {
-			//X方向が長い
+		else { //X方向が長い
 			int f = (deltaZ << 1) - deltaX;   //条件式初期値
 			for (int i = 0; i < deltaX; ++i) {
 				if (f >= 0) {
@@ -119,14 +116,10 @@ void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 				m_nextStepPos[i] = pos;
 			}
 		}
-
 		m_prevTargetPos = target;   //探索時の目標地点は保存しておく
 	}
-
 	now = m_nextStepPos[m_stepCount++];
 }
 
 void Interception::Finalize(){
 }
-
-
