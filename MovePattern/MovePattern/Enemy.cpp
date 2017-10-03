@@ -41,7 +41,7 @@ void Enemy::Initialize(const wstring& file_name)
 
 	m_moving_pattern->Initialize(this, m_target);
 
-	m_bread_crumb->Initialize(this, m_target);
+	//m_bread_crumb->Initialize(this, m_target);
 
 	m_waypoint->Initialize(this);
 	// ウェイポイントを設定する
