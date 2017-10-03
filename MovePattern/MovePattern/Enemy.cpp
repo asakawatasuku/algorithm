@@ -3,9 +3,9 @@
 /// </summary>
 
 #include "Enemy.h"
-#include "BreadCrumb.h"
 #include "Pursuit.h"
 
+using namespace std;
 using namespace DirectX::SimpleMath;
 
 /// <summary>
@@ -16,8 +16,9 @@ Enemy::Enemy()
 	m_scale = Vector3(1.0f);
 	m_pos = Vector3(5.0f, 0.0f, 0.0f);
 
-	m_moving_pattern = std::make_unique<BreadCrumb>();
-	m_waypoint = std::make_unique<WaypointNavigation>();
+	m_moving_pattern = make_unique<Pursuit>();
+	m_bread_crumb = make_unique<BreadCrumb>();
+	m_waypoint = make_unique<WaypointNavigation>();
 }
 
 
@@ -34,11 +35,13 @@ Enemy::~Enemy()
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Enemy::Initialize(const std::wstring& file_name)
+void Enemy::Initialize(const wstring& file_name)
 {
 	Base::Initialize(file_name);
 
-	//m_moving_pattern->Initialize(this, m_target);
+	m_moving_pattern->Initialize(this, m_target);
+
+	m_bread_crumb->Initialize(this, m_target);
 
 	m_waypoint->Initialize(this);
 	// ウェイポイントを設定する
@@ -69,7 +72,11 @@ void Enemy::Update()
 {
 	m_moving_pattern->Update();
 
-	m_waypoint->Update();
+	//m_a_star->Update();
+
+	//m_bread_crumb->Update();
+
+	//m_waypoint->Update();
 	
 	Base::Update();
 }
@@ -83,7 +90,7 @@ void Enemy::Render()
 {
 	Base::Render();
 
-	m_waypoint->Render();
+	//m_waypoint->Render();
 }
 
 
@@ -94,5 +101,6 @@ void Enemy::Render()
 void Enemy::Finalize()
 {
 	m_moving_pattern->Finalize();
+	m_bread_crumb->Finalize();
 	m_waypoint->Finalize();
 }

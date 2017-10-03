@@ -5,12 +5,15 @@
 #include <algorithm>
 #include <memory>
 #include <functional>
+#include "Base.h"
 #include "Node.h"
-#include "MovingPattern.h"
 
-class A_Star : public MovingPattern
+class A_Star
 {
 private:
+	Base* m_object;
+	Base* m_target;
+
 	int m_start_pos_x;						// スタート座標x
 	int m_start_pos_z;						// スタート座標z
 	int m_goal_pos_x;						// ゴール座標x
@@ -23,9 +26,11 @@ private:
 public:
 	A_Star(std::pair<int, int> start, std::pair<int, int> goal, int **cost_, int **heuristic_);
 	// 初期化関数
-	void Initiarize(Base* object, Base* target);
+	void Initialize(Base* object, Base* target);
 	// 更新処理
 	void Update();
+	// 終了処理
+	void Finalize();
 	// 比較関数
 	bool Compare(const std::shared_ptr<Node>& a, const std::shared_ptr<Node>& b);
 	// ゴール

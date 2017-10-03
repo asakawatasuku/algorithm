@@ -25,7 +25,7 @@ A_Star::A_Star(pair<int, int> start, pair<int, int> goal, int **cost_, int **heu
 /// </summary>
 /// <param name="object"></param>
 /// <param name="target"></param>
-void A_Star::Initiarize(Base* object, Base* target)
+void A_Star::Initialize(Base* object, Base* target)
 {
 	m_object = object;
 	m_target = target;
@@ -324,4 +324,13 @@ void A_Star::Update()
 	//	a_star.back_track();
 	//}
 
+}
+
+/// <summary>
+/// I—¹ˆ—
+/// </summary>
+void A_Star::Finalize()
+{
+	delete m_cost;
+	delete m_heuristic;
 }
