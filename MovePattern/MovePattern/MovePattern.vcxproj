@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="A_star.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="BreadCrumb.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -177,6 +178,7 @@
     <ClInclude Include="MathGroup.h" />
     <ClInclude Include="MovingPattern.h" />
     <ClInclude Include="MyGame.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pursuit.h" />
     <ClInclude Include="StepTimer.h" />
@@ -185,6 +187,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="A_star.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BreadCrumb.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

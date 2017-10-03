@@ -27,6 +27,8 @@
     <ClInclude Include="BreadCrumb.h" />
     <ClInclude Include="Getaway.h" />
     <ClInclude Include="WaypointBox.h" />
+    <ClInclude Include="A_star.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
@@ -47,6 +49,7 @@
     <ClCompile Include="Getaway.cpp" />
     <ClCompile Include="MathGroup.cpp" />
     <ClCompile Include="WaypointBox.cpp" />
+    <ClCompile Include="A_star.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

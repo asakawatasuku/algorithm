@@ -58,7 +58,6 @@ void Enemy::Initialize(const std::wstring& file_name)
 	m_waypoint->MakeRoad(5, 6);
 	// “¹‚ğŠî‚Éƒe[ƒuƒ‹‚ğì¬
 	m_waypoint->RegisterTable();
-	//m_waypoint->CreateGraph();
 }
 
 
@@ -68,11 +67,7 @@ void Enemy::Initialize(const std::wstring& file_name)
 /// </summary>
 void Enemy::Update()
 {
-	//m_moving_pattern->DropBreadCrumb();
-<<<<<<< HEAD
 	m_moving_pattern->Update();
-=======
-	//m_moving_pattern->Update();
 
 	m_waypoint->Update();
 	
@@ -80,7 +75,6 @@ void Enemy::Update()
 }
 
 
->>>>>>> f73c651ff33588c05d3f5ee515fb0c76e9469f80
 
 /// <summary>
 /// •`‰æˆ—
