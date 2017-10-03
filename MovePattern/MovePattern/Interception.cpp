@@ -3,9 +3,9 @@
 using namespace std;
 using namespace DirectX::SimpleMath;
 
-//---------------------------------------
-// 初期設定
-//---------------------------------------
+/// <summary>
+/// 初期設定
+/// </summary>
 void Interception::Initialize(Base* object, Base* target) {
 	m_object = object;
 	m_target = target;
@@ -15,10 +15,13 @@ void Interception::Initialize(Base* object, Base* target) {
 	m_Vr = Vector3::Zero;
 }
 
-//---------------------------------------
-// 処理
-//---------------------------------------
+/// <summary>
+/// 更新処理
+/// </summary>
 void Interception::Update() {
+
+	// 目標地点に到達したか
+	if (m_object->GetPos() != m_point) {
 
 	// 相対距離
 	m_Sp = m_object->GetPos();
@@ -36,7 +39,7 @@ void Interception::Update() {
 	double distance = sqrt(m_Sr.x * m_Sr.x + m_Sr.z * m_Sr.z);
 	double velocity = sqrt(m_Vr.x * m_Vr.x + m_Vr.z * m_Vr.z);
 
-	//if (!(0.000f <= velocity && velocity <= 0.000f))
+	if (!(0.000f <= velocity && velocity <= 0.000f))
 	{
 		m_Tc = distance / velocity;
 		m_Tc = fabs(m_Tc);
@@ -45,24 +48,21 @@ void Interception::Update() {
 	m_point.x = m_Sp.x + (LONG)((double)m_Vr.x * m_Tc);
 	m_point.z = m_Sp.z + (LONG)((double)m_Vr.z * m_Tc);	
 
-	// 目標地点に到達したか
-	if (m_object->GetPos() != m_point) {
+	//LOSアルゴリズムを使って移動
+	UpdateBresenham(m_Se, -m_point);
 
-		//LOSアルゴリズムを使って移動
-		UpdateBresenham(m_Se, -m_point);
+	Vector3 tmp = m_object->GetSpeed() + (m_target->GetSpeed() + m_Se) * 0.0005;
 
-		Vector3 tmp = m_object->GetSpeed() + (m_target->GetSpeed() + m_Se) * 0.0005;
-
-		m_object->SetSpeed(tmp);
+	m_object->SetSpeed(tmp);
 	}
 	else {
 		m_object->SetSpeed(Vector3::Zero);
 	}
 }
 
-//---------------------------------------
-// LOSアルゴリズム(Webページより引用)
-//---------------------------------------
+/// <summary>
+/// LOSアルゴリズム(Webページより引用)
+/// </summary>
 void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 {
 	if ((m_prevTargetPos.x == target.x) && (m_prevTargetPos.z == target.z)) {
@@ -81,8 +81,8 @@ void Interception::UpdateBresenham(Vector3& now, Vector3 &target)
 
 		Vector3 pos = now;
 
-		int deltaX = target.x - pos.x;
-		int deltaZ = target.z - pos.z;
+		int deltaX = target.x + pos.x;
+		int deltaZ = target.z + pos.z;
 
 		const int stepX = (deltaX >= 0) ? 1 : -1;
 		const int stepZ = (deltaZ >= 0) ? 1 : -1;
