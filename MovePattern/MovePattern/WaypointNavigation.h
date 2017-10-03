@@ -6,6 +6,7 @@
 
 #include "Base.h"
 #include "MathGroup.h"
+#include "WaypointBox.h"
 #include <memory>
 #include <Model.h>
 #include <d3d11.h>
@@ -16,31 +17,35 @@ class WaypointNavigation
 {
 private:
 	Base* m_object;
+	std::vector<std::unique_ptr<WaypointBox>> m_box;
 
 	static const int WAY_POINT_MAX_NUM = 20;
 	static const int INF_COST = 1 << 28;
 
-	int m_edge_cost[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
-	int m_shortest_path[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
-	int m_target_index;
-	DirectX::SimpleMath::Vector3 m_target_waypoint;
 	std::vector<DirectX::SimpleMath::Vector3> m_waypoints;
-
 	int m_node_table[WAY_POINT_MAX_NUM][WAY_POINT_MAX_NUM];
 	// ÉmÅ[ÉhÇ™Ç¢Ç≠Ç¬ì¸Ç¡ÇƒÇ¢ÇÈÇ©äiî[Ç∑ÇÈ
 	int m_node_num[WAY_POINT_MAX_NUM];
+	int m_now_index;
+	DirectX::SimpleMath::Vector3 m_now_waypoint;
+	int m_next_index;
+	DirectX::SimpleMath::Vector3 m_next_waypoint;
+	int m_target_index;
+	DirectX::SimpleMath::Vector3 m_target_waypoint;
+	// Lerpóp
+	float m_time;
+	int m_waiting_time;
 public:
 	void Initialize(Base* object);
-	void Update(DirectX::SimpleMath::Vector3 target_pos);
+	void Update();
+	void Render();
 	void Finalize();
 
 	void AddWaypoint(const DirectX::SimpleMath::Vector3 waypoint);
-	void InsertEdge(int start_point, int end_point, int cost = 1);
-	void CreateGraph();
+	void MakeRoad(int start_point, int end_point);
 
 	void RegisterTable();
 private:
-	int GetNextNode(const int start, const int end);
 	int SearchNearestPoint(const DirectX::SimpleMath::Vector3& pos);
 	DirectX::SimpleMath::Vector3 GetWaypointPos(const int& index);
 };

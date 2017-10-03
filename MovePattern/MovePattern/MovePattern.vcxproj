@@ -180,6 +180,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pursuit.h" />
     <ClInclude Include="StepTimer.h" />
+    <ClInclude Include="WaypointBox.h" />
     <ClInclude Include="WaypointNavigation.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pursuit.cpp" />
+    <ClCompile Include="WaypointBox.cpp" />
     <ClCompile Include="WaypointNavigation.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -218,6 +220,7 @@
     <MeshContentTask Include="Assets\enemy.FBX" />
     <MeshContentTask Include="Assets\ground.FBX" />
     <MeshContentTask Include="Assets\player.FBX" />
+    <MeshContentTask Include="Assets\waypoint_box.FBX" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

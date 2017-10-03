@@ -18,23 +18,19 @@ using namespace DirectX::SimpleMath;
 void WaypointNavigation::Initialize(Base* object)
 {
 	m_object = object;
-	m_object->SetSpeed(Vector3::Forward * 0.1f);
+
+	m_box.resize(WAY_POINT_MAX_NUM);
+	for (auto itr = m_box.begin(); itr != m_box.end(); itr++)
+	{
+		(*itr) = make_unique<WaypointBox>();
+		(*itr)->Initialize(L"waypoint_box");
+	}
 
 	m_target_index = -1;
-
-	// エッジの初期化
-	for (int i = 0; i < WAY_POINT_MAX_NUM; i++)
-	{
-		for (int j = 0; j < WAY_POINT_MAX_NUM; j++)
-		{
-			m_edge_cost[i][j] = INF_COST;
-		}
-	}
-	// 自身へのコストはなし
-	for (int i = 0; i < WAY_POINT_MAX_NUM; i++)
-	{
-		m_edge_cost[i][i] = 0;
-	}
+	m_now_index = -1;
+	m_next_index = -1;
+	m_time = 0.0f;
+	m_waiting_time = 0;
 
 	for (int i = 0; i < WAY_POINT_MAX_NUM; i++)
 	{
@@ -57,55 +53,106 @@ void WaypointNavigation::Initialize(Base* object)
 
 
 
-/// <summary>
-/// 位置更新
-/// </summary>
-/// <param name="target_pos">新しい目標座標</param>
-void WaypointNavigation::Update(DirectX::SimpleMath::Vector3 target_pos)
+void WaypointNavigation::Update()
 {
+	// 目標のウェイポイントが決まってない
 	if (m_target_index < 0)
 	{
-		// 最初のウェイポイントが見つかってないので、直近のウェイポイントを探す
-		m_target_index = SearchNearestPoint(m_object->GetPos());
-		m_target_waypoint = GetWaypointPos(m_target_index);
-	}
-	else
-	{
-		// 目標のウェイポイントは見つかっている
+		// 現在位置から一番近いウェイポイントを探す
+		// 危険かも
+		m_now_index = SearchNearestPoint(m_object->GetPos());
+		m_now_waypoint = GetWaypointPos(m_now_index);
 
-		const float RANGE_MAX = 15.0f;
-		if (LMath::IsCollisionCircle(m_target_waypoint, m_object->GetPos(), RANGE_MAX))
+		if (m_object->GetPos() != m_now_waypoint)
 		{
-			// すでに到着しているので、次のウェイポイントを探す
-			const int object_point = SearchNearestPoint(target_pos);
-			m_target_index = GetNextNode(m_target_index, object_point);
-			m_target_waypoint = GetWaypointPos(m_target_index);
+			m_time > 1.0f ? m_time = 1.0f : m_time += 0.01f;
+
+			// 最初だけ近くのウェイポイントまで向かう
+			Vector3 pos = Vector3::Lerp(m_object->GetPos(), m_now_waypoint, m_time);
+			m_object->SetPos(pos);
+		}
+		else
+		{
+			// ランダムな場所から一番近いウェイポイントを探す
+			m_target_index = m_now_index;
+			while (m_now_index == m_target_index)
+			{
+				Vector3 pos;
+				pos.x = rand() % 10 - 5;
+				pos.z = rand() % 10 - 5;
+				m_target_index = SearchNearestPoint(pos);
+				m_target_waypoint = GetWaypointPos(m_target_index);
+			}
+
+			// 次に移動するウェイポイントを探す
+			m_next_index = m_node_table[m_now_index][m_target_index];
+			m_next_waypoint = GetWaypointPos(m_next_index);
+
+			m_time = 0.0f;
 		}
 	}
-
-	if (m_target_waypoint.y >= 0.0f)
+	// 行き先が決まっている
+	else
 	{
-		// 目標地点が有効なら、そこに向かう
+		// テーブルを使って移動
+		// 今のウェイポイントを一つ目の添え字に、目的のウェイポイントを二つ目の添え字に
+		// 2つ目の添え字は移動しきるまで固定
+		// 配列の中身を次の1つ目の添え字に
+		m_time += 0.01f;
 
-		Vector3 dir_vec = LMath::Normalize(m_object->GetPos(), m_target_waypoint);
+		if (m_time >= 1.0f)
+		{
+			// m_nextを代入
+			m_now_index = m_next_index;
+			m_now_waypoint = m_next_waypoint;
+			
+			// 目的のウェイポイントについた
+			if (m_now_index == m_target_index)
+			{
+				// 少しの間待機する
+				m_waiting_time++;
+				if (m_waiting_time >= 60)
+				{
+					m_target_index = -1;
+					m_time = 0.0f;
+					m_waiting_time = 0;
+				}
+			}
+			else
+			{
+				m_waiting_time++;
+				if (m_waiting_time >= 30)
+				{
+					// 次に進むウェイポイントを更新する
+					m_next_index = m_node_table[m_now_index][m_target_index];
+					m_next_waypoint = GetWaypointPos(m_next_index);
 
-		Vector3 dir = m_object->GetRot();
-		dir.y = ADJUST_RAD(atan2f(-dir_vec.z, dir_vec.x));
-		m_object->SetRot(dir);
+					m_time = 0.0f;
+					m_waiting_time = 0;
+				}
+			}
+		}
 
-		Vector3 pos = m_object->GetPos();
-		Vector3 speed = m_object->GetSpeed();
-		Matrix rot = Matrix::CreateRotationY(m_object->GetRot().y);
-		speed =	Vector3::TransformNormal(speed, rot);
-		//Vector3 speed = Vector3::TransformNormal(m_object->GetSpeed(), m_object->GetWorld());
-		//pos.x += Vector3::Distance(Vector3::Zero, m_object->GetSpeed()) * cosf(dir.y);
-		//pos.z += Vector3::Distance(Vector3::Zero, m_object->GetSpeed()) * -sinf(dir.y);
-		//pos.x += Vector3::Distance(Vector3::Zero, speed) * cosf(dir.y);
-		//pos.z += Vector3::Distance(Vector3::Zero, speed) * -sinf(dir.y);
-		//pos.x += speed.y * cosf(dir.y);
-		//pos.z += speed.y * -sinf(dir.y);
-		pos += speed;
+		Vector3 pos = Vector3::Lerp(m_now_waypoint, m_next_waypoint, m_time);
 		m_object->SetPos(pos);
+	}
+
+	for (auto itr = m_box.begin(); itr != m_box.end(); itr++)
+	{
+		(*itr)->Update();
+	}
+}
+
+
+
+/// <summary>
+/// ウェイポイント用のボックスを表示する
+/// </summary>
+void WaypointNavigation::Render()
+{
+	for (int i = 0; i < m_waypoints.size(); i++)
+	{
+		m_box[i]->Render();
 	}
 }
 
@@ -127,108 +174,25 @@ void WaypointNavigation::AddWaypoint(const Vector3 waypoint)
 	if (m_waypoints.size() < WAY_POINT_MAX_NUM)
 	{
 		m_waypoints.push_back(waypoint);
+
+		// ウェイポイント用のボックスの座標を設定する
+		m_box[m_waypoints.size() - 1]->SetPos(waypoint);
 	}
 }
 
 
 
 /// <summary>
-/// エッジを追加してコストを設定する
+/// 道を作る
 /// </summary>
 /// <param name="start_point">始点</param>
 /// <param name="end_point">終点</param>
-/// <param name="cost">コスト</param>
-void WaypointNavigation::InsertEdge(int start_point, int end_point, int cost)
+void WaypointNavigation::MakeRoad(int start_point, int end_point)
 {
-	// エッジを設定
-	// 通れる場所の点同士を繋ぐ。
-	m_edge_cost[start_point][end_point] = m_edge_cost[end_point][start_point] = cost;
-
 	m_node_table[start_point][end_point] = end_point;
 	m_node_table[end_point][start_point] = start_point;
 	m_node_num[start_point]++;
-}
-
-
-
-/// <summary>
-/// グラフ生成
-/// </summary>
-void WaypointNavigation::CreateGraph()
-{
-	// ウェイポイント生成
-	//{
-	//	vector<Vector3> waypoint_array = m_waypoints;
-	//	const int waypoint_num = m_waypoints.size();
-	//	const int POINT_NUM = 4;
-	//	for (int i = 0; i < waypoint_num; i++)
-	//	{
-	//		Vector3 pos;
-	//		pos.x = 50.0f + (100.0f * (float)(i % POINT_NUM));
-	//		pos.z = 50.0f + (100.0f * (float)(i / POINT_NUM));
-	//		waypoint_array[i] = pos;
-	//	}
-	//}
-
-	//// エッジを設定
-	//{
-	//	// 手作業でエッジを設定
-	//	// 通れる場所の点同士を繋ぐ。
-	//	m_edge_cost[0][1] = m_edge_cost[1][0] = 1;
-	//	m_edge_cost[1][2] = m_edge_cost[2][1] = 1;
-	//	m_edge_cost[2][3] = m_edge_cost[3][2] = 2;
-
-	//	m_edge_cost[0][4] = m_edge_cost[4][0] = 1;
-	//	m_edge_cost[1][5] = m_edge_cost[5][1] = 2;
-	//	m_edge_cost[2][6] = m_edge_cost[6][2] = 1;
-	//	m_edge_cost[3][7] = m_edge_cost[7][3] = 1;
-
-	//	m_edge_cost[4][5] = m_edge_cost[5][4] = 1;
-	//	m_edge_cost[5][6] = m_edge_cost[6][5] = 2;
-	//	m_edge_cost[6][7] = m_edge_cost[7][6] = 1;
-
-	//	m_edge_cost[4][8] = m_edge_cost[8][4] = 1;
-	//	m_edge_cost[5][9] = m_edge_cost[9][5] = 2;
-	//	m_edge_cost[6][10] = m_edge_cost[10][6] = 1;
-	//	m_edge_cost[7][11] = m_edge_cost[11][7] = 1;
-
-	//	m_edge_cost[8][9] = m_edge_cost[9][8] = 2;
-	//	m_edge_cost[9][10] = m_edge_cost[10][9] = 1;
-	//	m_edge_cost[10][11] = m_edge_cost[11][10] = 3;
-
-	//	m_edge_cost[8][12] = m_edge_cost[12][8] = 1;
-	//	m_edge_cost[9][13] = m_edge_cost[13][9] = 1;
-	//	m_edge_cost[10][14] = m_edge_cost[14][10] = 3;
-	//	m_edge_cost[11][15] = m_edge_cost[15][11] = 1;
-
-	//	m_edge_cost[12][13] = m_edge_cost[13][12] = 1;
-	//	m_edge_cost[13][14] = m_edge_cost[14][13] = 1;
-	//	m_edge_cost[14][15] = m_edge_cost[15][14] = 1;
-	//}
-
-	// 全点対最短距離を求める
-	{
-		// エッジの状態をそのままコピー
-		for (int i = 0; i < WAY_POINT_MAX_NUM; i++)
-		{
-			for (int j = 0; j < WAY_POINT_MAX_NUM; j++)
-			{
-				m_shortest_path[i][j] = m_edge_cost[i][j];
-			}
-		}
-
-		for (int i = 0; i < WAY_POINT_MAX_NUM; i++)
-		{
-			for (int j = 0; j < WAY_POINT_MAX_NUM; j++)
-			{
-				for (int k = 0; k < WAY_POINT_MAX_NUM; k++)
-				{
-					const int new_value = m_shortest_path[j][i] + m_shortest_path[i][k];
-					m_shortest_path[j][k] = min(m_shortest_path[j][k], new_value);
-				}
-			}
-		}
-	}
+	m_node_num[end_point]++;
 }
 
 
@@ -247,13 +211,8 @@ void WaypointNavigation::RegisterTable()
 		int node_num = 0;
 		for (int j = 0; j < waypoint_num; j++)
 		{
-			//if (m_node_table[i][j] > -1 && m_node_table[i][j] < waypoint_num)
-			//{
-			//	num = m_node_table[i][j];
-			//	node_num++;
-			//}
-			// ノード番号が一つしかない場合、ノード番号を他の場所に代入
-			if (m_node_num[i] == 1)
+			// ノード番号が二つしかない場合、ノード番号を他の場所に代入
+			if (m_node_num[i] == 2)
 			{
 				if (m_node_table[i][j] > -1 && m_node_table[i][j] < waypoint_num)
 				{
@@ -277,7 +236,7 @@ void WaypointNavigation::RegisterTable()
 				}
 			}
 
-			if (m_node_num[num] == 2)
+			if (m_node_num[num] == 3)
 			{
 				int other_num = 0;
 				// 他の番号を探す
@@ -340,32 +299,6 @@ void WaypointNavigation::RegisterTable()
 
 
 /// <summary>
-/// 次に行くウェイポイントを取得
-/// </summary>
-/// <param name="start"></param>
-/// <param name="end"></param>
-/// <returns>-1以外:次のウェイポイント　-1:見つからなかった</returns>
-int WaypointNavigation::GetNextNode(const int start, const int end)
-{
-	for (int i = 0; i < m_waypoints.size(); i++)
-	{
-		if (i == start)
-		{
-			continue;
-		}
-
-		if (m_edge_cost[start][i] + m_shortest_path[i][end] == m_shortest_path[start][end])
-		{
-			return i;
-		}
-	}
-
-	return -1;
-}
-
-
-
-/// <summary>
 /// 指定位置から一番近いウェイポイントを探す
 /// </summary>
 /// <param name="pos">座標</param>
@@ -405,7 +338,7 @@ int WaypointNavigation::SearchNearestPoint(const Vector3& pos)
 /// <returns>ウェイポイントの位置</returns>
 Vector3 WaypointNavigation::GetWaypointPos(const int& index)
 {
-	Vector3 tmp(-1.0f);
+	Vector3 tmp(0.0f);
 
 	vector<Vector3> waypoint_array = m_waypoints;
 	const int waypoint_num = m_waypoints.size();

@@ -23,6 +23,7 @@ public:
 
 	void Initialize(const std::wstring& file_name);
 	void Update();
+	void Render();
 	void Finalize();
 
 	void SetTarget(Base* target)
