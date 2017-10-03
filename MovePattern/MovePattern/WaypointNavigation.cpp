@@ -12,6 +12,20 @@ using namespace DirectX::SimpleMath;
 
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+WaypointNavigation::WaypointNavigation()
+	: m_now_index(-1)
+	, m_next_index(-1)
+	, m_target_index(-1)
+	, m_time(0.0f)
+	, m_waiting_time(0)
+{
+}
+
+
+
+/// <summary>
 /// 初期化処理
 /// </summary>
 /// <param name="object">ウェイポイントを実装するオブジェクト</param>
@@ -25,12 +39,6 @@ void WaypointNavigation::Initialize(Base* object)
 		(*itr) = make_unique<WaypointBox>();
 		(*itr)->Initialize(L"waypoint_box");
 	}
-
-	m_target_index = -1;
-	m_now_index = -1;
-	m_next_index = -1;
-	m_time = 0.0f;
-	m_waiting_time = 0;
 
 	for (int i = 0; i < WAY_POINT_MAX_NUM; i++)
 	{
@@ -59,7 +67,6 @@ void WaypointNavigation::Update()
 	if (m_target_index < 0)
 	{
 		// 現在位置から一番近いウェイポイントを探す
-		// 危険かも
 		m_now_index = SearchNearestPoint(m_object->GetPos());
 		m_now_waypoint = GetWaypointPos(m_now_index);
 
@@ -95,14 +102,11 @@ void WaypointNavigation::Update()
 	else
 	{
 		// テーブルを使って移動
-		// 今のウェイポイントを一つ目の添え字に、目的のウェイポイントを二つ目の添え字に
-		// 2つ目の添え字は移動しきるまで固定
-		// 配列の中身を次の1つ目の添え字に
+
 		m_time += 0.01f;
 
 		if (m_time >= 1.0f)
 		{
-			// m_nextを代入
 			m_now_index = m_next_index;
 			m_now_waypoint = m_next_waypoint;
 			
@@ -111,7 +115,7 @@ void WaypointNavigation::Update()
 			{
 				// 少しの間待機する
 				m_waiting_time++;
-				if (m_waiting_time >= 60)
+				if (m_waiting_time >= 90)
 				{
 					m_target_index = -1;
 					m_time = 0.0f;
@@ -133,6 +137,7 @@ void WaypointNavigation::Update()
 			}
 		}
 
+		// Lerpで移動
 		Vector3 pos = Vector3::Lerp(m_now_waypoint, m_next_waypoint, m_time);
 		m_object->SetPos(pos);
 	}

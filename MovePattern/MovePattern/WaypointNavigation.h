@@ -36,6 +36,8 @@ private:
 	float m_time;
 	int m_waiting_time;
 public:
+	WaypointNavigation();
+
 	void Initialize(Base* object);
 	void Update();
 	void Render();

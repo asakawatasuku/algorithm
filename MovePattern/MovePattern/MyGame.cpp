@@ -31,11 +31,14 @@ void MyGame::Initialize() {
 	// Enemyオブジェクトを生成する Create Enemy object
 	m_enemy = make_unique<Enemy>();
 	m_enemy->SetTarget(m_player.get());
+	m_enemy->SetSpriteBatch(spriteBatch.get());
+	m_enemy->SetSpriteFont(font.get());
 	// Enemyオブジェクトを初期化する Initialize Enemy object
 	m_enemy->Initialize(L"enemy");
 
 	m_keyboard = make_unique<KeyboardUtil>();
 	m_player->SetKeyboard(m_keyboard.get());
+	m_enemy->SetKeyboard(m_keyboard.get());
 }
 
 // ゲームを更新する Update game
