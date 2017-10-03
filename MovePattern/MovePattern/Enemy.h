@@ -6,6 +6,7 @@
 
 #include "Base.h"
 #include "Pursuit.h"
+#include "Interception.h"
 #include "BreadCrumb.h"
 
 class Enemy :public Base

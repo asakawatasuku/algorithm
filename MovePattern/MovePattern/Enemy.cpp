@@ -46,7 +46,7 @@ void Enemy::Initialize(const std::wstring& file_name)
 /// </summary>
 void Enemy::Update()
 {
-	m_moving_pattern->DropBreadCrumb();
+	//m_moving_pattern->DropBreadCrumb();
 	m_moving_pattern->Update();
 
 	Base::Update();

@@ -4,8 +4,6 @@
 #include <Windows.h>
 #include "MovingPattern.h"
 
-
-
 class Interception : public MovingPattern
 {
 private:
@@ -24,11 +22,8 @@ private:
 	DirectX::SimpleMath::Vector3 m_Se;			
 	// 敵の移動ベクトル
 	DirectX::SimpleMath::Vector3 m_Ve;
-
 	// 迎撃ポイント
 	DirectX::SimpleMath::Vector3 m_point;
-	// 迎撃移動量
-	//DirectX::SimpleMath::Vector3 m_movement;
 
 #define NEXT_POS_MAX 10000
 	//1フレーム前の目標地点
@@ -37,7 +32,6 @@ private:
 	DirectX::SimpleMath::Vector3   m_nextStepPos[NEXT_POS_MAX];
 	//ステップ数
 	int     m_stepCount;
-
 
 public:
 	void Initialize(Base* object, Base* target);
