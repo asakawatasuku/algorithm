@@ -26,6 +26,9 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="BreadCrumb.h" />
     <ClInclude Include="Getaway.h" />
+    <ClInclude Include="WaypointBox.h" />
+    <ClInclude Include="A_star.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
@@ -45,6 +48,8 @@
     <ClCompile Include="BreadCrumb.cpp" />
     <ClCompile Include="Getaway.cpp" />
     <ClCompile Include="MathGroup.cpp" />
+    <ClCompile Include="WaypointBox.cpp" />
+    <ClCompile Include="A_star.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -67,6 +72,9 @@
       <Filter>Assets</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\ground.FBX">
+      <Filter>Assets</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\waypoint_box.FBX">
       <Filter>Assets</Filter>
     </MeshContentTask>
   </ItemGroup>

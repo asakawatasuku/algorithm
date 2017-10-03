@@ -42,23 +42,22 @@ void Enemy::Initialize(const std::wstring& file_name)
 
 	m_waypoint->Initialize(this);
 	// ウェイポイントを設定する
-	m_waypoint->AddWaypoint(Vector3(-5, 0, 3));
-	m_waypoint->AddWaypoint(Vector3(-1, 0, 5));
 	m_waypoint->AddWaypoint(Vector3(-4, 0, -5));
-	m_waypoint->AddWaypoint(Vector3(5, 0, 3));
-	m_waypoint->AddWaypoint(Vector3(1, 0, 5));
-	m_waypoint->AddWaypoint(Vector3(4, 0, -5));
-	m_waypoint->AddWaypoint(Vector3(4, 0, 5));
-	// エッジを設定する
-	m_waypoint->InsertEdge(0, 1);
-	m_waypoint->InsertEdge(1, 2);
-	m_waypoint->InsertEdge(2, 3);
-	m_waypoint->InsertEdge(2, 4);
-	m_waypoint->InsertEdge(4, 5);
-	m_waypoint->InsertEdge(5, 6);
-	// エッジを基にテーブルを作成
+	m_waypoint->AddWaypoint(Vector3(-2, 0, -3));
+	m_waypoint->AddWaypoint(Vector3( 1, 0, -2));
+	m_waypoint->AddWaypoint(Vector3( 4, 0, -4));
+	m_waypoint->AddWaypoint(Vector3( 4, 0,  3));
+	m_waypoint->AddWaypoint(Vector3( 1, 0,  1));
+	m_waypoint->AddWaypoint(Vector3(-4, 0,  4));
+	// 道を作る
+	m_waypoint->MakeRoad(0, 1);
+	m_waypoint->MakeRoad(1, 2);
+	m_waypoint->MakeRoad(2, 3);
+	m_waypoint->MakeRoad(2, 4);
+	m_waypoint->MakeRoad(4, 5);
+	m_waypoint->MakeRoad(5, 6);
+	// 道を基にテーブルを作成
 	m_waypoint->RegisterTable();
-	m_waypoint->CreateGraph();
 }
 
 
@@ -68,21 +67,23 @@ void Enemy::Initialize(const std::wstring& file_name)
 /// </summary>
 void Enemy::Update()
 {
-	//m_moving_pattern->DropBreadCrumb();
-<<<<<<< HEAD
 	m_moving_pattern->Update();
-=======
-	//m_moving_pattern->Update();
 
-	Vector3 pos;
-	pos.x = rand() % 10 - 5;
-	pos.z = rand() % 10 - 5;
-	m_waypoint->Update(pos);
-
-
->>>>>>> f73c651ff33588c05d3f5ee515fb0c76e9469f80
-
+	m_waypoint->Update();
+	
 	Base::Update();
+}
+
+
+
+/// <summary>
+/// 描画処理
+/// </summary>
+void Enemy::Render()
+{
+	Base::Render();
+
+	m_waypoint->Render();
 }
 
 
