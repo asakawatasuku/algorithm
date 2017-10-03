@@ -8,12 +8,14 @@
 #include "Pursuit.h"
 #include "Interception.h"
 #include "BreadCrumb.h"
+#include "WaypointNavigation.h"
 
 class Enemy :public Base
 {
 private:
 	// ˆÚ“®ƒpƒ^[ƒ“
 	std::unique_ptr<BreadCrumb> m_moving_pattern;
+	std::unique_ptr<WaypointNavigation> m_waypoint;
 	// ’ÇÕ‘ÎÛ
 	Base* m_target;
 public:

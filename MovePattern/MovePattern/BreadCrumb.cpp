@@ -14,6 +14,8 @@ void BreadCrumb::Initialize(Base* object, Base* target)
 	m_object = object;
 	m_target = target;
 
+	m_object->SetSpeed(Vector3::Forward * 0.1f);
+
 	m_bread_array = new Vector3();
 }
 
