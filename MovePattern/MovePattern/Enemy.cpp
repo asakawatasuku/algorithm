@@ -19,7 +19,7 @@ Enemy::Enemy()
 	m_scale = Vector3(1.0f);
 	m_pos = Vector3(3.0f, 0.0f, 0.0f);
 
-	m_moving_pattern = make_unique<Interception>();
+	m_moving_pattern = make_unique<Pursuit>();
 	m_waypoint = make_unique<WaypointNavigation>();
 
 	m_pattern_num = PATTERN_KIND::PURSUIT;
