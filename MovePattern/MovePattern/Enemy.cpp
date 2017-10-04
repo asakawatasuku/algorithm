@@ -19,8 +19,7 @@ Enemy::Enemy()
 	m_scale = Vector3(1.0f);
 	m_pos = Vector3(3.0f, 0.0f, 0.0f);
 
-	m_moving_pattern = make_unique<Pursuit>();
-	m_bread_crumb = make_unique<BreadCrumb>();
+	m_moving_pattern = make_unique<Interception>();
 	m_waypoint = make_unique<WaypointNavigation>();
 
 	m_pattern_num = PATTERN_KIND::PURSUIT;
@@ -45,8 +44,6 @@ void Enemy::Initialize(const wstring& file_name)
 	Base::Initialize(file_name);
 
 	m_moving_pattern->Initialize(this, m_target);
-
-	//m_bread_crumb->Initialize(this, m_target);
 
 	m_waypoint->Initialize(this);
 	// ウェイポイントを設定する
@@ -113,10 +110,6 @@ void Enemy::Update()
 	default:
 		break;
 	}
-
-	//m_a_star->Update();
-
-	//m_bread_crumb->Update();
 	
 	Base::Update();
 }
@@ -130,6 +123,7 @@ void Enemy::Render()
 {
 	Base::Render();
 
+	// 現在の移動パターンを表示する
 	wstring str = L"Now Moving Pattern:";
 	switch (m_pattern_num)
 	{
@@ -164,6 +158,5 @@ void Enemy::Render()
 void Enemy::Finalize()
 {
 	m_moving_pattern->Finalize();
-	m_bread_crumb->Finalize();
 	m_waypoint->Finalize();
 }

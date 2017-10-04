@@ -5,8 +5,6 @@
 #pragma once
 
 #include "Base.h"
-#include "A_star.h"
-#include "BreadCrumb.h"
 #include "MovingPattern.h"
 #include "WaypointNavigation.h"
 #include "KeyboardUtil.h"
@@ -29,8 +27,6 @@ private:
 
 	// ˆÚ“®ƒpƒ^[ƒ“
 	std::unique_ptr<MovingPattern> m_moving_pattern;
-	std::unique_ptr<A_Star> m_a_star;
-	std::unique_ptr<BreadCrumb> m_bread_crumb;
 	std::unique_ptr<WaypointNavigation> m_waypoint;
 	// ’ÇÕ‘ÎÛ
 	Base* m_target;
